@@ -1,4 +1,4 @@
-package com.devexperto.architectcoders
+package com.devexperto.architectcoders.model
 
 import com.google.gson.annotations.SerializedName
 
