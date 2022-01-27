@@ -1,4 +1,4 @@
-package com.devexperto.architectcoders
+package com.devexperto.architectcoders.model
 
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -1,4 +1,4 @@
-package com.devexperto.architectcoders
+package com.devexperto.architectcoders.ui
 
 import android.content.Context
 import android.view.LayoutInflater

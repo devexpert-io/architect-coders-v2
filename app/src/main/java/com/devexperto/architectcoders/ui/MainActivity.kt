@@ -1,9 +1,11 @@
-package com.devexperto.architectcoders
+package com.devexperto.architectcoders.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.databinding.ActivityMainBinding
+import com.devexperto.architectcoders.model.RemoteConnection
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {

@@ -1,9 +1,11 @@
-package com.devexperto.architectcoders
+package com.devexperto.architectcoders.ui
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.devexperto.architectcoders.model.Movie
+import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.databinding.ViewMovieBinding
 import kotlin.properties.Delegates
 

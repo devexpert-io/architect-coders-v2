@@ -1,4 +1,4 @@
-package com.devexperto.architectcoders
+package com.devexperto.architectcoders.model
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
