@@ -2,6 +2,7 @@ package com.devexperto.architectcoders.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
@@ -34,7 +35,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    private val adapter = MoviesAdapter()
+    private val adapter = MoviesAdapter{
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.MOVIE, it)
+        startActivity(intent)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
