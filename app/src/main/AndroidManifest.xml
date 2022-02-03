@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ArchitectCoders">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.DetailActivity"
+            android:name=".ui.detail.DetailActivity"
             android:exported="false"
             android:theme="@style/Theme.ArchitectCoders.NoActionBar" />
     </application>

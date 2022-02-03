@@ -1,4 +1,4 @@
-package com.devexperto.architectcoders.ui
+package com.devexperto.architectcoders.ui.detail
 
 import android.content.Context
 import android.util.AttributeSet
