@@ -5,28 +5,37 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.devexperto.architectcoders.databinding.ActivityDetailBinding
 import com.devexperto.architectcoders.model.Movie
+import com.devexperto.architectcoders.ui.getParcelableExtraCompat
 import com.devexperto.architectcoders.ui.loadUrl
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity(), DetailPresenter.View {
     companion object {
         const val MOVIE = "DetailActivity:movie"
     }
+
+    private val presenter = DetailPresenter()
+    private lateinit var binding: ActivityDetailBinding
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        ActivityDetailBinding.inflate(layoutInflater).run {
-            setContentView(root)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-            val movie = intent.getParcelableExtraCompat<Movie>(MOVIE) ?: throw IllegalStateException()
+        val movie: Movie = requireNotNull(intent.getParcelableExtraCompat(MOVIE))
+        presenter.onCreate(this, movie)
+    }
 
-            movieDetailToolbar.title = movie.title
+    override fun onDestroy() {
+        presenter.onDestroy()
+        super.onDestroy()
+    }
 
-            val background = movie.backdropPath ?: movie.posterPath
-            movieDetailImage.loadUrl("https://image.tmdb.org/t/p/w780$background")
-            movieDetailSummary.text = movie.overview
-            movieDetailInfo.setMovie(movie)
-        }
+    override fun updateUI(movie: Movie) = with(binding) {
+        movieDetailToolbar.title = movie.title
+        movieDetailImage.loadUrl("https://image.tmdb.org/t/p/w780${movie.backdropPath}")
+        movieDetailSummary.text = movie.overview
+        movieDetailInfo.setMovie(movie)
     }
 }
