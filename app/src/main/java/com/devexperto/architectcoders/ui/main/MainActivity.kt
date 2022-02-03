@@ -2,6 +2,7 @@ package com.devexperto.architectcoders.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.devexperto.architectcoders.databinding.ActivityMainBinding
@@ -22,12 +23,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        binding.recycler.adapter = adapter
+        with(ActivityMainBinding.inflate(layoutInflater)) {
+            setContentView(root)
 
-        lifecycleScope.launch {
-            adapter.submitList(moviesRepository.findPopularMovies().results)
+            recycler.adapter = adapter
+
+            lifecycleScope.launch {
+                progress.visibility = View.VISIBLE
+                adapter.submitList(moviesRepository.findPopularMovies().results)
+                progress.visibility = View.GONE
+            }
         }
     }
 }
