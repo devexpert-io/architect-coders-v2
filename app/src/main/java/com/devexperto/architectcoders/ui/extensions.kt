@@ -13,9 +13,7 @@ import androidx.annotation.IntRange
 import androidx.annotation.LayoutRes
 import androidx.core.content.IntentCompat
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlin.properties.Delegates
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
@@ -26,24 +24,16 @@ fun ImageView.loadUrl(url: String) {
     Glide.with(context).load(url).into(this)
 }
 
-inline fun <VH : RecyclerView.ViewHolder, T> RecyclerView.Adapter<VH>.basicDiffUtil(
-    initialValue: List<T>,
+inline fun <T : Any> basicDiffUtil(
     crossinline areItemsTheSame: (T, T) -> Boolean = { old, new -> old == new },
     crossinline areContentsTheSame: (T, T) -> Boolean = { old, new -> old == new }
-) =
-    Delegates.observable(initialValue) { _, old, new ->
-        DiffUtil.calculateDiff(object : DiffUtil.Callback() {
-            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-                areItemsTheSame(old[oldItemPosition], new[newItemPosition])
+) = object : DiffUtil.ItemCallback<T>() {
+    override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =
+        areItemsTheSame(oldItem, newItem)
 
-            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-                areContentsTheSame(old[oldItemPosition], new[newItemPosition])
-
-            override fun getOldListSize(): Int = old.size
-
-            override fun getNewListSize(): Int = new.size
-        }).dispatchUpdatesTo(this@basicDiffUtil)
-    }
+    override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
+        areContentsTheSame(oldItem, newItem)
+}
 
 inline fun <reified T> Intent.getParcelableExtraCompat(name: String?): T? {
     return IntentCompat.getParcelableExtra(this, name, T::class.java)
