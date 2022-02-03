@@ -1,12 +1,11 @@
-package com.devexperto.architectcoders.ui
+package com.devexperto.architectcoders.ui.detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.bold
-import androidx.core.text.buildSpannedString
 import com.devexperto.architectcoders.databinding.ActivityDetailBinding
 import com.devexperto.architectcoders.model.Movie
+import com.devexperto.architectcoders.ui.loadUrl
 
 class DetailActivity : AppCompatActivity() {
     companion object {
