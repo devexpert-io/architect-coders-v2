@@ -6,33 +6,48 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.devexperto.architectcoders.databinding.ActivityMainBinding
+import com.devexperto.architectcoders.model.Movie
 import com.devexperto.architectcoders.model.MoviesRepository
 import com.devexperto.architectcoders.ui.detail.DetailActivity
-import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainPresenter.View {
 
-    private val moviesRepository by lazy { MoviesRepository(this) }
-
-    private val adapter = MoviesAdapter {
-        val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.MOVIE, it)
-        startActivity(intent)
+    private val presenter by lazy {
+        MainPresenter(MoviesRepository(this), lifecycleScope)
     }
+
+    private val adapter = MoviesAdapter { presenter.onMovieClicked(it) }
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        with(ActivityMainBinding.inflate(layoutInflater)) {
-            setContentView(root)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        presenter.onCreate(this@MainActivity)
+        binding.recycler.adapter = adapter
+    }
 
-            recycler.adapter = adapter
+    override fun onDestroy() {
+        presenter.onDestroy()
+        super.onDestroy()
+    }
 
-            lifecycleScope.launch {
-                progress.visibility = View.VISIBLE
-                adapter.submitList(moviesRepository.findPopularMovies().results)
-                progress.visibility = View.GONE
-            }
-        }
+    override fun showProgress() {
+        binding.progress.visibility = View.VISIBLE
+    }
+
+    override fun hideProgress() {
+        binding.progress.visibility = View.GONE
+    }
+
+    override fun updateData(movies: List<Movie>) {
+        adapter.submitList(movies)
+    }
+
+    override fun navigateTo(movie: Movie) {
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.MOVIE, movie)
+        startActivity(intent)
     }
 }
