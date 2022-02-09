@@ -3,10 +3,14 @@ package com.devexperto.architectcoders.ui.detail
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.devexperto.architectcoders.databinding.ActivityDetailBinding
 import com.devexperto.architectcoders.model.Movie
 import com.devexperto.architectcoders.ui.common.getParcelableExtraCompat
 import com.devexperto.architectcoders.ui.common.loadUrl
+import kotlinx.coroutines.launch
 
 class DetailActivity : AppCompatActivity() {
     companion object {
@@ -25,7 +29,11 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.state.observe(this) { updateUI(it.movie) }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.state.collect { updateUI(it.movie) }
+            }
+        }
     }
 
     private fun updateUI(movie: Movie) = with(binding) {
