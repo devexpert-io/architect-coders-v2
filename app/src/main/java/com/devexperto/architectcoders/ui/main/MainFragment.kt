@@ -3,7 +3,6 @@ package com.devexperto.architectcoders.ui.main
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -46,9 +45,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun navigateTo(movie: Movie) {
-        findNavController().navigate(
-            R.id.action_main_to_detail,
-            bundleOf("movie" to movie)
-        )
+        val action = MainFragmentDirections.actionMainToDetail(movie)
+        findNavController().navigate(action)
     }
 }
