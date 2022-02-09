@@ -47,6 +47,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
 
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.0'
+
     implementation 'com.google.android.gms:play-services-location:19.0.1'
 
     implementation 'com.github.bumptech.glide:glide:4.12.0'

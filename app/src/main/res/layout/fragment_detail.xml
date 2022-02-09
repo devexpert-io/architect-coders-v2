@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.detail.DetailActivity">
+    tools:context=".ui.detail.DetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -33,6 +33,7 @@
                 android:id="@+id/movie_detail_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_arrow_back"
                 app:title="Movie name" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
