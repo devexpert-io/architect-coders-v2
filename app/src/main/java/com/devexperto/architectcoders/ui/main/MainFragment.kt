@@ -5,17 +5,13 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.databinding.FragmentMainBinding
 import com.devexperto.architectcoders.model.Movie
 import com.devexperto.architectcoders.model.MoviesRepository
+import com.devexperto.architectcoders.ui.launchAndCollect
 import com.devexperto.architectcoders.ui.visible
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
@@ -31,9 +27,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             recycler.adapter = adapter
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { binding.updateUI(it) }
+        viewLifecycleOwner.launchAndCollect(viewModel.state) { binding.updateUI(it) }
+
+        viewLifecycleOwner.launchAndCollect(viewModel.events) {
+            when (it) {
+                is MainViewModel.UiEvent.NavigateTo -> navigateTo(it.movie)
             }
         }
     }
@@ -41,7 +39,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun FragmentMainBinding.updateUI(state: MainViewModel.UiState) {
         progress.visible = state.loading
         state.movies?.let(adapter::submitList)
-        state.navigateTo?.let(::navigateTo)
     }
 
     private fun navigateTo(movie: Movie) {
