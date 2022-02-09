@@ -1,4 +1,4 @@
-package com.devexperto.architectcoders.ui
+package com.devexperto.architectcoders.ui.common
 
 import android.content.Intent
 import android.location.Address
@@ -53,3 +53,9 @@ suspend fun Geocoder.getFromLocationCompat(
         continuation.resume(getFromLocation(latitude, longitude, maxResults) ?: emptyList())
     }
 }
+
+var View.visible: Boolean
+    get() = visibility == View.VISIBLE
+    set(value) {
+        visibility = if (value) View.VISIBLE else View.GONE
+    }

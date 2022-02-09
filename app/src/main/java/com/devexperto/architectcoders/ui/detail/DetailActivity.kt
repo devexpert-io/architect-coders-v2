@@ -1,38 +1,34 @@
 package com.devexperto.architectcoders.ui.detail
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.devexperto.architectcoders.databinding.ActivityDetailBinding
 import com.devexperto.architectcoders.model.Movie
-import com.devexperto.architectcoders.ui.getParcelableExtraCompat
-import com.devexperto.architectcoders.ui.loadUrl
+import com.devexperto.architectcoders.ui.common.getParcelableExtraCompat
+import com.devexperto.architectcoders.ui.common.loadUrl
 
-class DetailActivity : AppCompatActivity(), DetailPresenter.View {
+class DetailActivity : AppCompatActivity() {
     companion object {
         const val MOVIE = "DetailActivity:movie"
     }
 
-    private val presenter = DetailPresenter()
+    private val viewModel: DetailViewModel by viewModels {
+        DetailViewModelFactory(requireNotNull(intent.getParcelableExtraCompat(MOVIE)))
+    }
+
     private lateinit var binding: ActivityDetailBinding
 
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val movie: Movie = requireNotNull(intent.getParcelableExtraCompat(MOVIE))
-        presenter.onCreate(this, movie)
+        viewModel.state.observe(this) { updateUI(it.movie) }
     }
 
-    override fun onDestroy() {
-        presenter.onDestroy()
-        super.onDestroy()
-    }
-
-    override fun updateUI(movie: Movie) = with(binding) {
+    private fun updateUI(movie: Movie) = with(binding) {
         movieDetailToolbar.title = movie.title
         movieDetailImage.loadUrl("https://image.tmdb.org/t/p/w780${movie.backdropPath}")
         movieDetailSummary.text = movie.overview
