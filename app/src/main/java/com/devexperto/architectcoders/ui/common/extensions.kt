@@ -3,7 +3,6 @@ package com.devexperto.architectcoders.ui.common
 import android.location.Address
 import android.location.Geocoder
 import android.os.Build
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import android.widget.ImageView
 import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
 import androidx.annotation.LayoutRes
-import androidx.core.os.BundleCompat
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -33,10 +31,6 @@ inline fun <T : Any> basicDiffUtil(
 
     override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
         areContentsTheSame(oldItem, newItem)
-}
-
-inline fun <reified T> Bundle.getParcelableCompat(name: String?): T? {
-    return BundleCompat.getParcelable(this, name, T::class.java)
 }
 
 @Suppress("DEPRECATION")

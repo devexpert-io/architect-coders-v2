@@ -7,16 +7,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
 import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.databinding.FragmentDetailBinding
-import com.devexperto.architectcoders.ui.common.getParcelableCompat
 import com.devexperto.architectcoders.ui.common.loadUrl
 import kotlinx.coroutines.launch
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
+    private val safeArgs: DetailFragmentArgs by navArgs()
+
     private val viewModel: DetailViewModel by viewModels {
-        DetailViewModelFactory(requireNotNull(arguments?.getParcelableCompat("movie")))
+        DetailViewModelFactory(requireNotNull(safeArgs.movie))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
