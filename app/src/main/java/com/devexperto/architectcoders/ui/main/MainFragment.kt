@@ -28,21 +28,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
 
         viewLifecycleOwner.launchAndCollect(viewModel.state) { binding.updateUI(it) }
-
-        viewLifecycleOwner.launchAndCollect(viewModel.events) {
-            when (it) {
-                is MainViewModel.UiEvent.NavigateTo -> navigateTo(it.movie)
-            }
-        }
     }
 
     private fun FragmentMainBinding.updateUI(state: MainViewModel.UiState) {
         progress.visible = state.loading
         state.movies?.let(adapter::submitList)
+        state.navigateTo?.let(::navigateTo)
     }
 
     private fun navigateTo(movie: Movie) {
         val action = MainFragmentDirections.actionMainToDetail(movie)
         findNavController().navigate(action)
+        viewModel.onNavigateDone()
     }
 }
