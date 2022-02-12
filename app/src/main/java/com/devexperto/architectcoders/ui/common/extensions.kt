@@ -1,4 +1,4 @@
-package com.devexperto.architectcoders.ui
+package com.devexperto.architectcoders.ui.common
 
 import android.view.LayoutInflater
 import android.view.View
@@ -32,12 +32,6 @@ inline fun <T> basicDiffUtil(
     override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
         areContentsTheSame(oldItem, newItem)
 }
-
-var View.visible: Boolean
-    get() = visibility == View.VISIBLE
-    set(value) {
-        visibility = if (value) View.VISIBLE else View.GONE
-    }
 
 fun <T> LifecycleOwner.launchAndCollect(
     flow: Flow<T>,

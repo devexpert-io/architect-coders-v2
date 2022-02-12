@@ -7,11 +7,7 @@ import androidx.fragment.app.viewModels
 import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.databinding.FragmentMainBinding
 import com.devexperto.architectcoders.model.MoviesRepository
-import com.devexperto.architectcoders.ui.launchAndCollect
-import com.devexperto.architectcoders.ui.visible
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
+import com.devexperto.architectcoders.ui.common.launchAndCollect
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
@@ -32,20 +28,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             recycler.adapter = adapter
         }
 
-        with(viewModel.state) {
-            diff({ it.movies }) { it?.let(adapter::submitList) }
-            diff({ it.loading }) { binding.progress.visible = it }
+        viewLifecycleOwner.launchAndCollect(viewModel.state) {
+            binding.loading = it.loading
+            binding.movies = it.movies
         }
 
         mainState.requestLocationPermission {
             viewModel.onUiReady()
         }
-    }
-
-    private fun <T, U> Flow<T>.diff(mapf: (T) -> U, body: (U) -> Unit) {
-        viewLifecycleOwner.launchAndCollect(
-            flow = map(mapf).distinctUntilChanged(),
-            body = body
-        )
     }
 }
