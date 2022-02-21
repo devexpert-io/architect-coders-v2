@@ -1,5 +1,6 @@
 package com.devexperto.architectcoders.ui.common
 
+import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import android.os.Build
@@ -16,6 +17,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
+import com.devexperto.architectcoders.App
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -54,12 +56,6 @@ suspend fun Geocoder.getFromLocationCompat(
     }
 }
 
-var View.visible: Boolean
-    get() = visibility == View.VISIBLE
-    set(value) {
-        visibility = if (value) View.VISIBLE else View.GONE
-    }
-
 fun <T> LifecycleOwner.launchAndCollect(
     flow: Flow<T>,
     state: Lifecycle.State = Lifecycle.State.STARTED,
@@ -71,3 +67,6 @@ fun <T> LifecycleOwner.launchAndCollect(
         }
     }
 }
+
+val Context.app: App
+    get() = applicationContext as App
