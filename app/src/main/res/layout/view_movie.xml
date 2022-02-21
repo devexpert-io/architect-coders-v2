@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.devexperto.architectcoders.model.Movie" />
+        <import type="com.devexperto.architectcoders.model.database.Movie" />
 
         <variable
             name="movie"

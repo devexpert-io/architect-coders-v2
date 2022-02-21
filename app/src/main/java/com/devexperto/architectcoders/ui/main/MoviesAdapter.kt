@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.databinding.ViewMovieBinding
-import com.devexperto.architectcoders.model.Movie
+import com.devexperto.architectcoders.model.database.Movie
 import com.devexperto.architectcoders.ui.common.basicDiffUtil
 import com.devexperto.architectcoders.ui.common.inflate
 

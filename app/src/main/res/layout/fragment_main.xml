@@ -5,7 +5,7 @@
 
     <data>
         <import type="java.util.List"/>
-        <import type="com.devexperto.architectcoders.model.Movie"/>
+        <import type="com.devexperto.architectcoders.model.database.Movie"/>
 
         <variable
             name="loading"

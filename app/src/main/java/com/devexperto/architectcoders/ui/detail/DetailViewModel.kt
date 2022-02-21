@@ -2,7 +2,7 @@ package com.devexperto.architectcoders.ui.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.devexperto.architectcoders.model.Movie
+import com.devexperto.architectcoders.model.database.Movie
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

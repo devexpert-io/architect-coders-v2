@@ -3,11 +3,9 @@ package com.devexperto.architectcoders.ui.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.devexperto.architectcoders.model.Movie
 import com.devexperto.architectcoders.model.MoviesRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import com.devexperto.architectcoders.model.database.Movie
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val moviesRepository: MoviesRepository) : ViewModel() {
@@ -15,10 +13,18 @@ class MainViewModel(private val moviesRepository: MoviesRepository) : ViewModel(
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()
 
+    init {
+        viewModelScope.launch {
+            moviesRepository.popularMovies.collect { movies ->
+                _state.value = UiState(movies = movies)
+            }
+        }
+    }
+
     fun onUiReady() {
         viewModelScope.launch {
             _state.value = UiState(loading = true)
-            _state.value = UiState(movies = moviesRepository.findPopularMovies().results)
+            moviesRepository.requestPopularMovies()
         }
     }
 
