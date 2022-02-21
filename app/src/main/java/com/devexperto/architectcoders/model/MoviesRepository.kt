@@ -18,6 +18,8 @@ class MoviesRepository(application: App) {
 
     val popularMovies = localDataSource.movies
 
+    fun findById(id: Int) = localDataSource.findById(id)
+
     suspend fun requestPopularMovies() = withContext(Dispatchers.IO) {
         if (localDataSource.isEmpty()) {
             val movies = remoteDataSource.findPopularMovies()

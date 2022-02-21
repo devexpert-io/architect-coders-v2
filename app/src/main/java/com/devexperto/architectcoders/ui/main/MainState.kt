@@ -25,7 +25,7 @@ class MainState(
     private val locationPermissionRequester: PermissionRequester
 ) {
     fun onMovieClicked(movie: Movie) {
-        val action = MainFragmentDirections.actionMainToDetail(movie)
+        val action = MainFragmentDirections.actionMainToDetail(movie.id)
         navController.navigate(action)
     }
 
