@@ -27,6 +27,12 @@ class DetailViewModel(
         }
     }
 
+    fun onFavoriteClicked() {
+        viewModelScope.launch {
+            _state.value.movie?.let { repository.switchFavorite(it) }
+        }
+    }
+
     class UiState(val movie: Movie? = null)
 }
 
