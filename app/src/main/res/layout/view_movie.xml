@@ -19,14 +19,28 @@
         android:orientation="vertical"
         android:padding="2dp">
 
-        <com.devexperto.architectcoders.ui.common.AspectRatioImageView
-            android:id="@+id/movie_cover"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            app:ratio="1.5"
-            app:url="@{`https://image.tmdb.org/t/p/w185/` + movie.posterPath}"
-            tools:src="@tools:sample/backgrounds/scenic" />
+            android:layout_height="wrap_content">
+
+            <com.devexperto.architectcoders.ui.common.AspectRatioImageView
+                android:id="@+id/movie_cover"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                app:ratio="1.5"
+                app:url="@{`https://image.tmdb.org/t/p/w185/` + movie.posterPath}"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_margin="4dp"
+                android:src="@drawable/ic_favorite_on"
+                app:visible="@{movie.favorite}" />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/movie_title"
