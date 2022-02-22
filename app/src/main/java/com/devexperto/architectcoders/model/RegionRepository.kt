@@ -4,6 +4,8 @@ import android.Manifest
 import android.app.Application
 import android.location.Geocoder
 import android.location.Location
+import com.devexperto.architectcoders.model.datasource.LocationDataSource
+import com.devexperto.architectcoders.model.datasource.PlayServicesLocationDataSource
 import com.devexperto.architectcoders.ui.common.getFromLocationCompat
 
 class RegionRepository(application: Application) {
