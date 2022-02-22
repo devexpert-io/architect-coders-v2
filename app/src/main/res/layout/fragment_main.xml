@@ -4,15 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="java.util.List"/>
-        <import type="com.devexperto.architectcoders.model.database.Movie"/>
+
+        <import type="java.util.List" />
+
+        <import type="com.devexperto.architectcoders.model.database.Movie" />
 
         <variable
             name="loading"
             type="boolean" />
+
         <variable
             name="movies"
             type="List&lt;Movie>" />
+
+        <variable
+            name="error"
+            type="String" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -25,8 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            app:statusBarForeground="?attr/colorPrimaryVariant"
-            android:theme="@style/AppTheme.DarkOverlay">
+            android:theme="@style/AppTheme.DarkOverlay"
+            app:statusBarForeground="?attr/colorPrimaryVariant">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -40,10 +47,11 @@
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:items="@{movies}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:spanCount="3"
-            app:items="@{movies}"/>
+            app:visible="@{ error == null }" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progress"
@@ -52,6 +60,14 @@
             android:layout_gravity="center"
             android:indeterminate="true"
             app:visible="@{loading}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            android:textColor="?attr/colorError"
+            android:text="@{error}"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
