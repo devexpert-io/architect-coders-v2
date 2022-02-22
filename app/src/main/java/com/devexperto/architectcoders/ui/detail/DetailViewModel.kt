@@ -3,12 +3,11 @@ package com.devexperto.architectcoders.ui.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.devexperto.architectcoders.model.Error
 import com.devexperto.architectcoders.model.MoviesRepository
 import com.devexperto.architectcoders.model.database.Movie
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
+import com.devexperto.architectcoders.model.toError
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class DetailViewModel(
@@ -21,19 +20,22 @@ class DetailViewModel(
 
     init {
         viewModelScope.launch {
-            repository.findById(movieId).collect {
-                _state.value = UiState(it)
-            }
+            repository.findById(movieId)
+                .catch { cause -> _state.update { it.copy(error = cause.toError()) } }
+                .collect { movie -> _state.update { UiState(movie = movie) } }
         }
     }
 
     fun onFavoriteClicked() {
         viewModelScope.launch {
-            _state.value.movie?.let { repository.switchFavorite(it) }
+            _state.value.movie?.let { movie ->
+                val error = repository.switchFavorite(movie)
+                _state.update { it.copy(error = error) }
+            }
         }
     }
 
-    class UiState(val movie: Movie? = null)
+    data class UiState(val movie: Movie? = null, val error: Error? = null)
 }
 
 @Suppress("UNCHECKED_CAST")
