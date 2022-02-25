@@ -1,4 +1,4 @@
-package com.devexperto.architectcoders.model.database
+package com.devexperto.architectcoders.data.database
 
 import android.os.Parcelable
 import androidx.room.Entity

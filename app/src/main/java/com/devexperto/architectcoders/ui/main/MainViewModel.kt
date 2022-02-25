@@ -3,10 +3,10 @@ package com.devexperto.architectcoders.ui.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.devexperto.architectcoders.model.Error
-import com.devexperto.architectcoders.model.MoviesRepository
-import com.devexperto.architectcoders.model.database.Movie
-import com.devexperto.architectcoders.model.toError
+import com.devexperto.architectcoders.data.Error
+import com.devexperto.architectcoders.data.MoviesRepository
+import com.devexperto.architectcoders.data.database.Movie
+import com.devexperto.architectcoders.data.toError
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
