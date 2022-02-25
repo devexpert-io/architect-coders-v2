@@ -1,10 +1,10 @@
-package com.devexperto.architectcoders.model
+package com.devexperto.architectcoders.data
 
 import com.devexperto.architectcoders.App
 import com.devexperto.architectcoders.R
-import com.devexperto.architectcoders.model.database.Movie
-import com.devexperto.architectcoders.model.datasource.MovieLocalDataSource
-import com.devexperto.architectcoders.model.datasource.MovieRemoteDataSource
+import com.devexperto.architectcoders.data.database.Movie
+import com.devexperto.architectcoders.data.datasource.MovieLocalDataSource
+import com.devexperto.architectcoders.data.datasource.MovieRemoteDataSource
 import kotlinx.coroutines.flow.Flow
 
 class MoviesRepository(application: App) {

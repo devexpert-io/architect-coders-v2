@@ -1,11 +1,11 @@
-package com.devexperto.architectcoders.model
+package com.devexperto.architectcoders.data
 
 import android.Manifest
 import android.app.Application
 import android.location.Geocoder
 import android.location.Location
-import com.devexperto.architectcoders.model.datasource.LocationDataSource
-import com.devexperto.architectcoders.model.datasource.PlayServicesLocationDataSource
+import com.devexperto.architectcoders.data.datasource.LocationDataSource
+import com.devexperto.architectcoders.data.datasource.PlayServicesLocationDataSource
 
 class RegionRepository(application: Application) {
 
