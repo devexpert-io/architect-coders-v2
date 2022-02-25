@@ -4,20 +4,25 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.devexperto.architectcoders.data.Error
-import com.devexperto.architectcoders.data.MoviesRepository
 import com.devexperto.architectcoders.data.database.Movie
 import com.devexperto.architectcoders.data.toError
+import com.devexperto.architectcoders.domain.GetPopularMoviesUseCase
+import com.devexperto.architectcoders.domain.RequestPopularMoviesUseCase
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val moviesRepository: MoviesRepository) : ViewModel() {
+class MainViewModel(
+    getPopularMoviesUseCase: GetPopularMoviesUseCase,
+    private val requestPopularMoviesUseCase: RequestPopularMoviesUseCase
+) :
+    ViewModel() {
 
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
-            moviesRepository.popularMovies
+            getPopularMoviesUseCase()
                 .catch { cause -> _state.update { it.copy(error = cause.toError()) } }
                 .collect { movies -> _state.update { UiState(movies = movies) } }
         }
@@ -26,7 +31,7 @@ class MainViewModel(private val moviesRepository: MoviesRepository) : ViewModel(
     fun onUiReady() {
         viewModelScope.launch {
             _state.value = _state.value.copy(loading = true)
-            val error = moviesRepository.requestPopularMovies()
+            val error = requestPopularMoviesUseCase()
             _state.update { _state.value.copy(loading = false, error = error) }
         }
     }
@@ -39,9 +44,12 @@ class MainViewModel(private val moviesRepository: MoviesRepository) : ViewModel(
 }
 
 @Suppress("UNCHECKED_CAST")
-class MainViewModelFactory(private val moviesRepository: MoviesRepository) :
+class MainViewModelFactory(
+    private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
+    private val requestPopularMoviesUseCase: RequestPopularMoviesUseCase
+) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MainViewModel(moviesRepository) as T
+        return MainViewModel(getPopularMoviesUseCase, requestPopularMoviesUseCase) as T
     }
 }
