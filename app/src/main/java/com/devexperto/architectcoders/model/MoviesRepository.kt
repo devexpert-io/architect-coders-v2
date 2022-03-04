@@ -9,11 +9,9 @@ import kotlinx.coroutines.flow.Flow
 
 class MoviesRepository(application: App) {
 
+    private val regionRepository = RegionRepository(application)
     private val localDataSource = MovieLocalDataSource(application.db.movieDao())
-    private val remoteDataSource = MovieRemoteDataSource(
-        application.getString(R.string.api_key),
-        regionRepository = RegionRepository(application)
-    )
+    private val remoteDataSource = MovieRemoteDataSource(application.getString(R.string.api_key))
 
     val popularMovies = localDataSource.movies
 
@@ -21,7 +19,7 @@ class MoviesRepository(application: App) {
 
     suspend fun requestPopularMovies() {
         if (localDataSource.isEmpty()) {
-            val movies = remoteDataSource.findPopularMovies()
+            val movies = remoteDataSource.findPopularMovies(regionRepository.findLastRegion())
             localDataSource.save(movies.results.toLocalModel())
         }
     }
