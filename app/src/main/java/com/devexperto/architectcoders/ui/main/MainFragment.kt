@@ -7,6 +7,11 @@ import androidx.fragment.app.viewModels
 import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.databinding.FragmentMainBinding
 import com.devexperto.architectcoders.data.MoviesRepository
+import com.devexperto.architectcoders.data.RegionRepository
+import com.devexperto.architectcoders.framework.AndroidPermissionChecker
+import com.devexperto.architectcoders.framework.datasource.MovieRoomDataSource
+import com.devexperto.architectcoders.framework.datasource.MovieServerDataSource
+import com.devexperto.architectcoders.framework.datasource.PlayServicesLocationDataSource
 import com.devexperto.architectcoders.usecases.GetPopularMoviesUseCase
 import com.devexperto.architectcoders.usecases.RequestPopularMoviesUseCase
 import com.devexperto.architectcoders.ui.common.app
@@ -15,7 +20,15 @@ import com.devexperto.architectcoders.ui.common.launchAndCollect
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val viewModel: MainViewModel by viewModels {
-        val repository = MoviesRepository(requireActivity().app)
+        val application = requireActivity().app
+        val repository = MoviesRepository(
+            RegionRepository(
+                PlayServicesLocationDataSource(application),
+                AndroidPermissionChecker(application)
+            ),
+            MovieRoomDataSource(application.db.movieDao()),
+            MovieServerDataSource(getString(R.string.api_key))
+        )
         MainViewModelFactory(
             GetPopularMoviesUseCase(repository),
             RequestPopularMoviesUseCase(repository)
