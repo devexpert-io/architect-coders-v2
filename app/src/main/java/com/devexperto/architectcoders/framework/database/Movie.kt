@@ -1,4 +1,4 @@
-package com.devexperto.architectcoders.data.database
+package com.devexperto.architectcoders.framework.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
