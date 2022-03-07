@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.devexperto.architectcoders.data.Error
 import com.devexperto.architectcoders.data.database.Movie
 import com.devexperto.architectcoders.data.toError
-import com.devexperto.architectcoders.domain.FindMovieUseCase
-import com.devexperto.architectcoders.domain.SwitchMovieFavoriteUseCase
+import com.devexperto.architectcoders.usecases.FindMovieUseCase
+import com.devexperto.architectcoders.usecases.SwitchMovieFavoriteUseCase
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
