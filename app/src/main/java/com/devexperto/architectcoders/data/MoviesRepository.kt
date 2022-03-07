@@ -2,9 +2,9 @@ package com.devexperto.architectcoders.data
 
 import com.devexperto.architectcoders.App
 import com.devexperto.architectcoders.R
-import com.devexperto.architectcoders.data.database.Movie
 import com.devexperto.architectcoders.data.datasource.MovieLocalDataSource
 import com.devexperto.architectcoders.data.datasource.MovieRemoteDataSource
+import com.devexperto.architectcoders.domain.Movie
 import kotlinx.coroutines.flow.Flow
 
 class MoviesRepository(application: App) {
@@ -20,7 +20,7 @@ class MoviesRepository(application: App) {
     suspend fun requestPopularMovies(): Error? = tryCall {
         if (localDataSource.isEmpty()) {
             val movies = remoteDataSource.findPopularMovies(regionRepository.findLastRegion())
-            localDataSource.save(movies.results.toLocalModel())
+            localDataSource.save(movies)
         }
     }
 
@@ -29,19 +29,3 @@ class MoviesRepository(application: App) {
         localDataSource.save(listOf(updatedMovie))
     }
 }
-
-private fun List<RemoteMovie>.toLocalModel(): List<Movie> = map { it.toLocalModel() }
-
-private fun RemoteMovie.toLocalModel(): Movie = Movie(
-    id,
-    title,
-    overview,
-    releaseDate,
-    posterPath,
-    backdropPath ?: "",
-    originalLanguage,
-    originalTitle,
-    popularity,
-    voteAverage,
-    false
-)
