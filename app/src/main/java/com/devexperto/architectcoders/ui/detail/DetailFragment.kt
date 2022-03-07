@@ -8,8 +8,8 @@ import androidx.navigation.fragment.navArgs
 import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.databinding.FragmentDetailBinding
 import com.devexperto.architectcoders.data.MoviesRepository
-import com.devexperto.architectcoders.domain.FindMovieUseCase
-import com.devexperto.architectcoders.domain.SwitchMovieFavoriteUseCase
+import com.devexperto.architectcoders.usecases.FindMovieUseCase
+import com.devexperto.architectcoders.usecases.SwitchMovieFavoriteUseCase
 import com.devexperto.architectcoders.ui.common.app
 import com.devexperto.architectcoders.ui.common.launchAndCollect
 
