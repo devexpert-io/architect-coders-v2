@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.devexperto.architectcoders.data.database.Movie" />
+        <import type="com.devexperto.architectcoders.domain.Movie" />
 
         <variable
             name="movie"
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
                 app:ratio="1.5"
-                app:url="@{`https://image.tmdb.org/t/p/w185/` + movie.posterPath}"
+                app:url="@{movie.posterPath}"
                 tools:src="@tools:sample/backgrounds/scenic" />
 
             <ImageView

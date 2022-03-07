@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.devexperto.architectcoders.data.database.Movie"/>
+        <import type="com.devexperto.architectcoders.domain.Movie"/>
         <variable
             name="movie"
             type="Movie" />
@@ -37,7 +37,7 @@
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
-                    app:url="@{`https://image.tmdb.org/t/p/w780/` + movie.backdropPath}"
+                    app:url="@{movie.backdropPath}"
                     tools:src="@mipmap/ic_launcher" />
 
                 <androidx.appcompat.widget.Toolbar
