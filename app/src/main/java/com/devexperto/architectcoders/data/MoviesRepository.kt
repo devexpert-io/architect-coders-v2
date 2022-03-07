@@ -5,13 +5,15 @@ import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.data.datasource.MovieLocalDataSource
 import com.devexperto.architectcoders.data.datasource.MovieRemoteDataSource
 import com.devexperto.architectcoders.domain.Movie
+import com.devexperto.architectcoders.framework.datasource.MovieRoomDataSource
+import com.devexperto.architectcoders.framework.datasource.MovieServerDataSource
 import kotlinx.coroutines.flow.Flow
 
 class MoviesRepository(application: App) {
 
     private val regionRepository = RegionRepository(application)
-    private val localDataSource = MovieLocalDataSource(application.db.movieDao())
-    private val remoteDataSource = MovieRemoteDataSource(application.getString(R.string.api_key))
+    private val localDataSource = MovieRoomDataSource(application.db.movieDao())
+    private val remoteDataSource = MovieServerDataSource(application.getString(R.string.api_key))
 
     val popularMovies = localDataSource.movies
 
