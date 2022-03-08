@@ -1,7 +1,7 @@
-package com.devexperto.architectcoders.framework.datasource
+package com.devexperto.architectcoders.framework.server
 
-import com.devexperto.architectcoders.data.RemoteConnection
-import com.devexperto.architectcoders.data.RemoteMovie
+import com.devexperto.architectcoders.framework.server.RemoteConnection
+import com.devexperto.architectcoders.framework.server.RemoteMovie
 import com.devexperto.architectcoders.data.datasource.MovieRemoteDataSource
 import com.devexperto.architectcoders.domain.Movie
 

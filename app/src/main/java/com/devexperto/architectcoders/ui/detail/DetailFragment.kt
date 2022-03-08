@@ -10,9 +10,9 @@ import com.devexperto.architectcoders.data.MoviesRepository
 import com.devexperto.architectcoders.data.RegionRepository
 import com.devexperto.architectcoders.databinding.FragmentDetailBinding
 import com.devexperto.architectcoders.framework.AndroidPermissionChecker
-import com.devexperto.architectcoders.framework.datasource.MovieRoomDataSource
-import com.devexperto.architectcoders.framework.datasource.MovieServerDataSource
-import com.devexperto.architectcoders.framework.datasource.PlayServicesLocationDataSource
+import com.devexperto.architectcoders.framework.PlayServicesLocationDataSource
+import com.devexperto.architectcoders.framework.database.MovieRoomDataSource
+import com.devexperto.architectcoders.framework.server.MovieServerDataSource
 import com.devexperto.architectcoders.ui.common.app
 import com.devexperto.architectcoders.ui.common.launchAndCollect
 import com.devexperto.architectcoders.usecases.FindMovieUseCase

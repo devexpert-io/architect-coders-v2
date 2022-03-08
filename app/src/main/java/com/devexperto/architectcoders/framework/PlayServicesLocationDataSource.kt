@@ -1,4 +1,4 @@
-package com.devexperto.architectcoders.framework.datasource
+package com.devexperto.architectcoders.framework
 
 import android.annotation.SuppressLint
 import android.app.Application
