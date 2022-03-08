@@ -9,7 +9,7 @@
 
         <variable
             name="movie"
-            type="Movie" />
+            type="com.devexperto.architectcoders.domain.Movie" />
     </data>
 
     <LinearLayout

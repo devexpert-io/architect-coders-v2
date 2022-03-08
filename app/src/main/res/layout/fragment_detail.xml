@@ -7,7 +7,7 @@
         <import type="com.devexperto.architectcoders.domain.Movie"/>
         <variable
             name="movie"
-            type="Movie" />
+            type="com.devexperto.architectcoders.domain.Movie" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
