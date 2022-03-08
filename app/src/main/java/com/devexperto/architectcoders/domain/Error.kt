@@ -1,4 +1,4 @@
-package com.devexperto.architectcoders.data
+package com.devexperto.architectcoders.domain
 
 import retrofit2.HttpException
 import java.io.IOException

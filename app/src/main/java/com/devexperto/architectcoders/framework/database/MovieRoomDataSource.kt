@@ -1,4 +1,4 @@
-package com.devexperto.architectcoders.framework.datasource
+package com.devexperto.architectcoders.framework.database
 
 import com.devexperto.architectcoders.data.datasource.MovieLocalDataSource
 import com.devexperto.architectcoders.domain.Movie
