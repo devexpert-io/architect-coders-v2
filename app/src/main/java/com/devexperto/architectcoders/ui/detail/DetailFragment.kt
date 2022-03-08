@@ -6,13 +6,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.devexperto.architectcoders.R
+import com.devexperto.architectcoders.data.AndroidPermissionChecker
 import com.devexperto.architectcoders.data.MoviesRepository
+import com.devexperto.architectcoders.data.PlayServicesLocationDataSource
 import com.devexperto.architectcoders.data.RegionRepository
+import com.devexperto.architectcoders.data.database.MovieRoomDataSource
+import com.devexperto.architectcoders.data.server.MovieServerDataSource
 import com.devexperto.architectcoders.databinding.FragmentDetailBinding
-import com.devexperto.architectcoders.framework.AndroidPermissionChecker
-import com.devexperto.architectcoders.framework.PlayServicesLocationDataSource
-import com.devexperto.architectcoders.framework.database.MovieRoomDataSource
-import com.devexperto.architectcoders.framework.server.MovieServerDataSource
 import com.devexperto.architectcoders.ui.common.app
 import com.devexperto.architectcoders.ui.common.launchAndCollect
 import com.devexperto.architectcoders.usecases.FindMovieUseCase
