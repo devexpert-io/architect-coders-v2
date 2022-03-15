@@ -10,7 +10,9 @@ import com.devexperto.architectcoders.usecases.GetPopularMoviesUseCase
 import com.devexperto.architectcoders.usecases.RequestPopularMoviesUseCase
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 
+@KoinViewModel
 class MainViewModel(
     getPopularMoviesUseCase: GetPopularMoviesUseCase,
     private val requestPopularMoviesUseCase: RequestPopularMoviesUseCase

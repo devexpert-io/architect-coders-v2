@@ -10,7 +10,9 @@ import com.devexperto.architectcoders.usecases.FindMovieUseCase
 import com.devexperto.architectcoders.usecases.SwitchMovieFavoriteUseCase
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 
+@KoinViewModel
 class DetailViewModel(
     movieId: Int,
     findMovieUseCase: FindMovieUseCase,
