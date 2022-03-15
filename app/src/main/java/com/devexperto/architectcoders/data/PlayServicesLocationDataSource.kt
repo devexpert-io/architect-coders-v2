@@ -8,8 +8,10 @@ import com.devexperto.architectcoders.data.datasource.LocationDataSource
 import com.devexperto.architectcoders.ui.common.getFromLocationCompat
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.suspendCancellableCoroutine
+import org.koin.core.annotation.Factory
 import kotlin.coroutines.resume
 
+@Factory
 class PlayServicesLocationDataSource(application: Application) : LocationDataSource {
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(application)
     private val geocoder = Geocoder(application)

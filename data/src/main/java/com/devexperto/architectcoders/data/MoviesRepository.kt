@@ -5,7 +5,9 @@ import com.devexperto.architectcoders.data.datasource.MovieRemoteDataSource
 import com.devexperto.architectcoders.domain.Error
 import com.devexperto.architectcoders.domain.Movie
 import kotlinx.coroutines.flow.Flow
+import org.koin.core.annotation.Factory
 
+@Factory
 class MoviesRepository(
     private val regionRepository: RegionRepository,
     private val localDataSource: MovieLocalDataSource,
