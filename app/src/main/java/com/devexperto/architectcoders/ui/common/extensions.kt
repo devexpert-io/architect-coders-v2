@@ -11,6 +11,7 @@ import android.widget.ImageView
 import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
 import androidx.annotation.LayoutRes
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -68,5 +69,6 @@ fun <T> LifecycleOwner.launchAndCollect(
     }
 }
 
-val Context.app: App
-    get() = applicationContext as App
+val Context.app: App get() = applicationContext as App
+
+val Fragment.app: App get() = requireContext().app
