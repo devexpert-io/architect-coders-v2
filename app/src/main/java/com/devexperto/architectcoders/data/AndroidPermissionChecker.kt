@@ -4,9 +4,7 @@ import android.Manifest
 import android.app.Application
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
-import org.koin.core.annotation.Factory
 
-@Factory
 class AndroidPermissionChecker(private val application: Application) :
     PermissionChecker {
 
