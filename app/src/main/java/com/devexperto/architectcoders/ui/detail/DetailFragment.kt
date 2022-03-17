@@ -14,7 +14,14 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private val safeArgs: DetailFragmentArgs by navArgs()
 
-    private val viewModel: DetailViewModel by viewModels { app.component.detailViewModelFactory }
+    private lateinit var component: DetailFragmentComponent
+
+    private val viewModel: DetailViewModel by viewModels { component.detailViewModelFactory }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        component = app.component.plus(DetailFragmentModule(safeArgs.movieId))
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
