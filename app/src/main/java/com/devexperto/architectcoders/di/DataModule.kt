@@ -8,7 +8,6 @@ import com.devexperto.architectcoders.data.datasource.MovieLocalDataSource
 import com.devexperto.architectcoders.data.datasource.MovieRemoteDataSource
 import dagger.Module
 import dagger.Provides
-import javax.inject.Named
 
 @Module
 object DataModule {
@@ -23,7 +22,6 @@ object DataModule {
     fun provideMoviesRepository(
         localDataSource: MovieLocalDataSource,
         remoteDataSource: MovieRemoteDataSource,
-        regionRepository: RegionRepository,
-        @Named("apiKey") apiKey: String
+        regionRepository: RegionRepository
     ) = MoviesRepository(regionRepository, localDataSource, remoteDataSource)
 }
