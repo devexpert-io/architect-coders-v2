@@ -1,13 +1,13 @@
 package com.devexperto.architectcoders.ui.main
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.devexperto.architectcoders.data.toError
 import com.devexperto.architectcoders.domain.Error
 import com.devexperto.architectcoders.domain.Movie
 import com.devexperto.architectcoders.usecases.GetPopularMoviesUseCase
 import com.devexperto.architectcoders.usecases.RequestPopularMoviesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,11 +16,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainViewModel(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     getPopularMoviesUseCase: GetPopularMoviesUseCase,
     private val requestPopularMoviesUseCase: RequestPopularMoviesUseCase
-) :
-    ViewModel() {
+) : ViewModel() {
 
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()
@@ -46,15 +46,4 @@ class MainViewModel(
         val movies: List<Movie>? = null,
         val error: Error? = null
     )
-}
-
-@Suppress("UNCHECKED_CAST")
-class MainViewModelFactory @Inject constructor(
-    private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
-    private val requestPopularMoviesUseCase: RequestPopularMoviesUseCase
-) :
-    ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MainViewModel(getPopularMoviesUseCase, requestPopularMoviesUseCase) as T
-    }
 }
