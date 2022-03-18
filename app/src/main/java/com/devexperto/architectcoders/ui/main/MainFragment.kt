@@ -4,20 +4,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.databinding.FragmentMainBinding
 import com.devexperto.architectcoders.ui.common.app
 import com.devexperto.architectcoders.ui.common.launchAndCollect
-import com.devexperto.architectcoders.usecases.GetPopularMoviesUseCase
-import com.devexperto.architectcoders.usecases.RequestPopularMoviesUseCase
+import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
-    private lateinit var component: MainFragmentComponent
+    @Inject
+    lateinit var vmFactory: MainViewModelFactory
 
-    private val viewModel: MainViewModel by viewModels { component.mainViewModelFactory }
+    private val viewModel: MainViewModel by viewModels { vmFactory }
 
     private lateinit var mainState: MainState
 
@@ -25,7 +23,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        component = app.component.plus(MainFragmentModule())
+        app.component.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,16 +44,5 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         mainState.requestLocationPermission {
             viewModel.onUiReady()
         }
-    }
-}
-
-@Suppress("UNCHECKED_CAST")
-class MainViewModelFactory(
-    private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
-    private val requestPopularMoviesUseCase: RequestPopularMoviesUseCase
-) :
-    ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MainViewModel(getPopularMoviesUseCase, requestPopularMoviesUseCase) as T
     }
 }
