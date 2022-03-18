@@ -10,7 +10,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class, DataModule::class, UseCaseModule::class])
+@Component(modules = [AppModule::class, AppDataModule::class])
 interface AppComponent {
 
     fun plus(module: MainFragmentModule): MainFragmentComponent
