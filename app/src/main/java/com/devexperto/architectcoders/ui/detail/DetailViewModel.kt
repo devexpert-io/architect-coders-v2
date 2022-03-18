@@ -4,12 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.devexperto.architectcoders.data.toError
-import com.devexperto.architectcoders.domain.Movie
 import com.devexperto.architectcoders.domain.Error
+import com.devexperto.architectcoders.domain.Movie
 import com.devexperto.architectcoders.usecases.FindMovieUseCase
 import com.devexperto.architectcoders.usecases.SwitchMovieFavoriteUseCase
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+
 
 class DetailViewModel(
     movieId: Int,
@@ -41,8 +45,8 @@ class DetailViewModel(
 }
 
 @Suppress("UNCHECKED_CAST")
-class DetailViewModelFactory(
-    private val movieId: Int,
+class DetailViewModelFactory @AssistedInject constructor(
+    @Assisted private val movieId: Int,
     private val findMovieUseCase: FindMovieUseCase,
     private val switchMovieFavoriteUseCase: SwitchMovieFavoriteUseCase
 ) :
@@ -50,4 +54,9 @@ class DetailViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return DetailViewModel(movieId, findMovieUseCase, switchMovieFavoriteUseCase) as T
     }
+}
+
+@AssistedFactory
+interface DetailViewModelAssistedFactory {
+    fun create(movieId: Int): DetailViewModelFactory
 }

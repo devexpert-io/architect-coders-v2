@@ -8,12 +8,14 @@ import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.databinding.FragmentMainBinding
 import com.devexperto.architectcoders.ui.common.app
 import com.devexperto.architectcoders.ui.common.launchAndCollect
+import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
-    private lateinit var component: MainFragmentComponent
+    @Inject
+    lateinit var vmFactory: MainViewModelFactory
 
-    private val viewModel: MainViewModel by viewModels { component.mainViewModelFactory }
+    private val viewModel: MainViewModel by viewModels { vmFactory }
 
     private lateinit var mainState: MainState
 
@@ -21,7 +23,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        component = app.component.plus(MainFragmentModule())
+        app.component.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
