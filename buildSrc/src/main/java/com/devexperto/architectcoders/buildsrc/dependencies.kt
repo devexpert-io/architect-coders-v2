@@ -5,6 +5,7 @@ package com.devexperto.architectcoders.buildsrc
 object Libs {
 
     const val androidGradlePlugin = "com.android.tools.build:gradle:8.0.2"
+    const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
     const val playServicesLocation = "com.google.android.gms:play-services-location:21.0.1"
 
     object Kotlin {
