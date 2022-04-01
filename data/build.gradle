@@ -12,6 +12,10 @@ dependencies {
     implementation Libs.Kotlin.Coroutines.core
     implementation Libs.JavaX.inject
     implementation Libs.Arrow.core
+
+    testImplementation Libs.JUnit.junit
+    testImplementation Libs.Mockito.kotlin
+    testImplementation Libs.Mockito.inline
 }
 
 java {
