@@ -97,6 +97,11 @@ object Libs {
         const val junit = "junit:junit:$version"
     }
 
+    object Mockito {
+        const val kotlin = "org.mockito.kotlin:mockito-kotlin:4.0.0"
+        const val inline = "org.mockito:mockito-inline:4.4.0"
+    }
+
     object JavaX {
         const val inject = "javax.inject:javax.inject:1"
     }

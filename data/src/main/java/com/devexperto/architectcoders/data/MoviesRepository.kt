@@ -12,7 +12,7 @@ class MoviesRepository @Inject constructor(
     private val localDataSource: MovieLocalDataSource,
     private val remoteDataSource: MovieRemoteDataSource
 ) {
-    val popularMovies = localDataSource.movies
+    val popularMovies get() = localDataSource.movies
 
     fun findById(id: Int): Flow<Movie> = localDataSource.findById(id)
 
