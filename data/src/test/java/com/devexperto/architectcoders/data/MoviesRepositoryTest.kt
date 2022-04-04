@@ -3,7 +3,7 @@ package com.devexperto.architectcoders.data
 import arrow.core.right
 import com.devexperto.architectcoders.data.datasource.MovieLocalDataSource
 import com.devexperto.architectcoders.data.datasource.MovieRemoteDataSource
-import com.devexperto.architectcoders.domain.Movie
+import com.devexperto.architectcoders.testshared.sampleMovie
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -96,17 +96,3 @@ class MoviesRepositoryTest {
         verify(localDataSource).save(argThat { !get(0).favorite })
     }
 }
-
-private val sampleMovie = Movie(
-    0,
-    "Title",
-    "Overview",
-    "01/01/2025",
-    "",
-    "",
-    "EN",
-    "Title",
-    5.0,
-    5.1,
-    false
-)
