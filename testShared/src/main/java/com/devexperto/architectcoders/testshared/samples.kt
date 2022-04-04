@@ -1,8 +1,8 @@
-package com.devexperto.architectcoders.usecases
+package com.devexperto.architectcoders.testshared
 
 import com.devexperto.architectcoders.domain.Movie
 
-internal val sampleMovie = Movie(
+val sampleMovie = Movie(
     0,
     "Title",
     "Overview",
