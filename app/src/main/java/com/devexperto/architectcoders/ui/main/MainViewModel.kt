@@ -33,7 +33,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = _state.value.copy(loading = true)
             val error = requestPopularMoviesUseCase()
-            _state.update { _state.value.copy(loading = false, error = error) }
+            _state.value = _state.value.copy(loading = false, error = error)
         }
     }
 

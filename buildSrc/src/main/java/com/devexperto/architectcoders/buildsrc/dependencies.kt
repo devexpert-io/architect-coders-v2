@@ -15,6 +15,7 @@ object Libs {
         object Coroutines {
             private const val version = "1.6.0"
             const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
+            const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
         }
     }
 
@@ -105,4 +106,6 @@ object Libs {
     object JavaX {
         const val inject = "javax.inject:javax.inject:1"
     }
+
+    const val turbine = "app.cash.turbine:turbine:0.7.0"
 }
