@@ -1,9 +1,9 @@
 package com.devexperto.architectcoders.ui.detail
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devexperto.architectcoders.data.toError
+import com.devexperto.architectcoders.di.MovieId
 import com.devexperto.architectcoders.domain.Error
 import com.devexperto.architectcoders.domain.Movie
 import com.devexperto.architectcoders.usecases.FindMovieUseCase
@@ -16,12 +16,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+    @MovieId private val movieId: Int,
     findMovieUseCase: FindMovieUseCase,
     private val switchMovieFavoriteUseCase: SwitchMovieFavoriteUseCase
 ) : ViewModel() {
-
-    private val movieId = DetailFragmentArgs.fromSavedStateHandle(savedStateHandle).movieId
 
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()
