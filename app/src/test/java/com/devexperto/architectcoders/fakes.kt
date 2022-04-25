@@ -10,7 +10,6 @@ import com.devexperto.architectcoders.domain.Movie
 import com.devexperto.architectcoders.testshared.sampleMovie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flowOf
 
 val defaultFakeMovies = listOf(
     sampleMovie.copy(1),
@@ -25,12 +24,23 @@ class FakeLocalDataSource : MovieLocalDataSource {
 
     override val movies = inMemoryMovies
 
+    private lateinit var findMovieFlow: MutableStateFlow<Movie>
+
     override suspend fun isEmpty() = movies.value.isEmpty()
 
-    override fun findById(id: Int): Flow<Movie> = flowOf(inMemoryMovies.value.first { it.id == id })
+    override fun findById(id: Int): Flow<Movie> {
+        findMovieFlow = MutableStateFlow(inMemoryMovies.value.first { it.id == id })
+        return findMovieFlow
+    }
 
     override suspend fun save(movies: List<Movie>): Error? {
         inMemoryMovies.value = movies
+
+        if (::findMovieFlow.isInitialized) {
+            movies.firstOrNull() { it.id == findMovieFlow.value.id }
+                ?.let { findMovieFlow.value = it }
+        }
+
         return null
     }
 }
