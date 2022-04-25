@@ -1,15 +1,10 @@
 package com.devexperto.architectcoders.ui.main
 
 import app.cash.turbine.test
-import com.devexperto.architectcoders.FakeLocalDataSource
-import com.devexperto.architectcoders.FakeLocationDataSource
-import com.devexperto.architectcoders.FakePermissionChecker
-import com.devexperto.architectcoders.FakeRemoteDataSource
-import com.devexperto.architectcoders.data.MoviesRepository
-import com.devexperto.architectcoders.data.RegionRepository
 import com.devexperto.architectcoders.domain.Movie
 import com.devexperto.architectcoders.testrules.CoroutinesTestRule
 import com.devexperto.architectcoders.testshared.sampleMovie
+import com.devexperto.architectcoders.ui.buildRepositoryWith
 import com.devexperto.architectcoders.ui.main.MainViewModel.UiState
 import com.devexperto.architectcoders.usecases.GetPopularMoviesUseCase
 import com.devexperto.architectcoders.usecases.RequestPopularMoviesUseCase
@@ -65,12 +60,7 @@ class MainIntegrationTests {
         localData: List<Movie> = emptyList(),
         remoteData: List<Movie> = emptyList()
     ): MainViewModel {
-        val locationDataSource = FakeLocationDataSource()
-        val permissionChecker = FakePermissionChecker()
-        val regionRepository = RegionRepository(locationDataSource, permissionChecker)
-        val localDataSource = FakeLocalDataSource().apply { inMemoryMovies.value = localData }
-        val remoteDataSource = FakeRemoteDataSource().apply { movies = remoteData }
-        val moviesRepository = MoviesRepository(regionRepository, localDataSource, remoteDataSource)
+        val moviesRepository = buildRepositoryWith(localData, remoteData)
         val getPopularMoviesUseCase = GetPopularMoviesUseCase(moviesRepository)
         val requestPopularMoviesUseCase = RequestPopularMoviesUseCase(moviesRepository)
         return MainViewModel(getPopularMoviesUseCase, requestPopularMoviesUseCase)
