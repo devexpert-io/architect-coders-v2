@@ -1,18 +1,20 @@
 package com.devexperto.architectcoders.ui.main
 
 import app.cash.turbine.test
-import com.devexperto.architectcoders.domain.Movie
+import com.devexperto.architectcoders.data.server.RemoteMovie
 import com.devexperto.architectcoders.testrules.CoroutinesTestRule
-import com.devexperto.architectcoders.testshared.sampleMovie
+import com.devexperto.architectcoders.ui.buildDatabaseMovies
+import com.devexperto.architectcoders.ui.buildRemoteMovies
 import com.devexperto.architectcoders.ui.buildRepositoryWith
 import com.devexperto.architectcoders.ui.main.MainViewModel.UiState
 import com.devexperto.architectcoders.usecases.GetPopularMoviesUseCase
 import com.devexperto.architectcoders.usecases.RequestPopularMoviesUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
+import com.devexperto.architectcoders.data.database.Movie as DatabaseMovie
 
 @ExperimentalCoroutinesApi
 class MainIntegrationTests {
@@ -22,7 +24,7 @@ class MainIntegrationTests {
 
     @Test
     fun `data is loaded from server when local source is empty`() = runTest {
-        val remoteData = listOf(sampleMovie.copy(1), sampleMovie.copy(2))
+        val remoteData = buildRemoteMovies(4, 5, 6)
         val vm = buildViewModelWith(
             localData = emptyList(),
             remoteData = remoteData
@@ -31,34 +33,44 @@ class MainIntegrationTests {
         vm.onUiReady()
 
         vm.state.test {
-            Assert.assertEquals(UiState(), awaitItem())
-            Assert.assertEquals(UiState(movies = emptyList()), awaitItem())
-            Assert.assertEquals(UiState(movies = emptyList(), loading = true), awaitItem())
-            Assert.assertEquals(UiState(movies = emptyList(), loading = false), awaitItem())
-            Assert.assertEquals(UiState(movies = remoteData, loading = false), awaitItem())
+            assertEquals(UiState(), awaitItem())
+            assertEquals(UiState(movies = emptyList()), awaitItem())
+            assertEquals(UiState(movies = emptyList(), loading = true), awaitItem())
+            assertEquals(UiState(movies = emptyList(), loading = false), awaitItem())
+
+            val movies = awaitItem().movies!!
+            assertEquals("Title 4", movies[0].title)
+            assertEquals("Title 5", movies[1].title)
+            assertEquals("Title 6", movies[2].title)
+
             cancel()
         }
     }
 
     @Test
     fun `data is loaded from local source when available`() = runTest {
-        val localData = listOf(sampleMovie.copy(10), sampleMovie.copy(11))
-        val remoteData = listOf(sampleMovie.copy(1), sampleMovie.copy(2))
+        val localData = buildDatabaseMovies(1, 2, 3)
+        val remoteData = buildRemoteMovies(4, 5, 6)
         val vm = buildViewModelWith(
             localData = localData,
             remoteData = remoteData
         )
 
         vm.state.test {
-            Assert.assertEquals(UiState(), awaitItem())
-            Assert.assertEquals(UiState(movies = localData), awaitItem())
+            assertEquals(UiState(), awaitItem())
+
+            val movies = awaitItem().movies!!
+            assertEquals("Title 1", movies[0].title)
+            assertEquals("Title 2", movies[1].title)
+            assertEquals("Title 3", movies[2].title)
+
             cancel()
         }
     }
 
     private fun buildViewModelWith(
-        localData: List<Movie> = emptyList(),
-        remoteData: List<Movie> = emptyList()
+        localData: List<DatabaseMovie> = emptyList(),
+        remoteData: List<RemoteMovie> = emptyList()
     ): MainViewModel {
         val moviesRepository = buildRepositoryWith(localData, remoteData)
         val getPopularMoviesUseCase = GetPopularMoviesUseCase(moviesRepository)
