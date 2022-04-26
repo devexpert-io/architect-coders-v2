@@ -53,13 +53,17 @@ object Libs {
         }
 
         object Test {
+            private const val version = "1.4.0"
+            const val runner = "androidx.test:runner:$version"
+            const val rules = "androidx.test:rules:$version"
+
             object Ext {
                 private const val version = "1.1.3"
-                const val junit = "androidx.test.ext:junit:$version"
+                const val junit = "androidx.test.ext:junit-ktx:$version"
             }
             object Espresso{
                 private const val version="3.4.0"
-                const val core = "androidx.test.espresso:espresso-core:$version"
+                const val contrib = "androidx.test.espresso:espresso-contrib:$version"
             }
         }
     }
