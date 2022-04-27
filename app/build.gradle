@@ -101,4 +101,6 @@ dependencies {
     androidTestImplementation Libs.Hilt.test
     androidTestImplementation Libs.Kotlin.Coroutines.test
     kaptAndroidTest Libs.Hilt.compiler
+
+    androidTestImplementation Libs.OkHttp3.mockWebServer
 }
