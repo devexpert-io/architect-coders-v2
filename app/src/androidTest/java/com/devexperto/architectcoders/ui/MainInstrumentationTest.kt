@@ -1,17 +1,22 @@
 package com.devexperto.architectcoders.ui
 
+import androidx.recyclerview.widget.RecyclerView
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.rule.GrantPermissionRule
-import com.devexperto.architectcoders.data.database.MovieDao
-import com.devexperto.architectcoders.data.datasource.MovieRemoteDataSource
+import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.data.server.MockWebServerRule
 import com.devexperto.architectcoders.fromJson
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
+import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -36,10 +41,7 @@ class MainInstrumentationTest {
     val activityRule = ActivityScenarioRule(NavHostActivity::class.java)
 
     @Inject
-    lateinit var movieDao: MovieDao
-
-    @Inject
-    lateinit var remoteDataSource: MovieRemoteDataSource
+    lateinit var okHttpClient: OkHttpClient
 
     @Before
     fun setUp() {
@@ -48,25 +50,21 @@ class MainInstrumentationTest {
         )
 
         hiltRule.inject()
+
+        val resource = OkHttp3IdlingResource.create("OkHttp", okHttpClient)
+        IdlingRegistry.getInstance().register(resource)
     }
 
     @Test
-    fun check_4_items_db() = runTest {
-        movieDao.insertMovies(buildDatabaseMovies(1, 2, 3, 4))
-        assertEquals(4, movieDao.movieCount())
-    }
+    fun click_a_movie_navigates_to_detail() {
+        onView(withId(R.id.recycler))
+            .perform(
+            actionOnItemAtPosition<RecyclerView.ViewHolder>(4, click()
+            )
+        )
 
-    @Test
-    fun check_6_items_db() = runTest {
-        movieDao.insertMovies(buildDatabaseMovies(1, 2, 3, 4, 5, 6))
-        assertEquals(6, movieDao.movieCount())
-    }
+        onView(withId(R.id.movie_detail_toolbar))
+            .check(matches(hasDescendant(withText("Turning Red"))))
 
-    @Test
-    fun check_mock_server_is_working() = runTest {
-        val movies = remoteDataSource.findPopularMovies("EN")
-        movies.fold({ throw Exception(it.toString()) }) {
-            assertEquals("The Batman", it[0].title)
-        }
     }
 }
