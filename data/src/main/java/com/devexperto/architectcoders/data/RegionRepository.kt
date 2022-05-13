@@ -1,7 +1,9 @@
 package com.devexperto.architectcoders.data
 
+import arrow.core.getOrElse
 import com.devexperto.architectcoders.data.PermissionChecker.Permission.COARSE_LOCATION
 import com.devexperto.architectcoders.data.datasource.LocationDataSource
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class RegionRepository @Inject constructor(
@@ -13,11 +15,13 @@ class RegionRepository @Inject constructor(
         const val DEFAULT_REGION = "US"
     }
 
-    suspend fun findLastRegion(): String {
+    fun findLastRegion(): Single<String> {
         return if (permissionChecker.check(COARSE_LOCATION)) {
-            locationDataSource.findLastRegion() ?: DEFAULT_REGION
+            locationDataSource
+                .findLastRegion()
+                .map { it.getOrElse { DEFAULT_REGION } }
         } else {
-            DEFAULT_REGION
+            Single.just(DEFAULT_REGION)
         }
     }
 }

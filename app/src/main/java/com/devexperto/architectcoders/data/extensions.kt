@@ -13,7 +13,7 @@ fun Throwable.toError(): Error = when (this) {
     else -> Error.Unknown(message ?: "")
 }
 
-suspend fun <T> tryCall(action: suspend () -> T): Either<Error, T> = try {
+fun <T> tryCall(action: () -> T): Either<Error, T> = try {
     action().right()
 } catch (e: Exception) {
     e.toError().left()

@@ -36,6 +36,7 @@ object Libs {
             private const val version = "2.4.1"
             const val viewmodelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
             const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
+            const val reactivestreamsKtx = "androidx.lifecycle:lifecycle-reactivestreams-ktx:$version"
         }
 
         object Navigation {
@@ -50,6 +51,7 @@ object Libs {
             const val runtime = "androidx.room:room-runtime:$version"
             const val ktx = "androidx.room:room-ktx:$version"
             const val compiler = "androidx.room:room-compiler:$version"
+            const val rxjava = "androidx.room:room-rxjava3:$version"
         }
 
         object Test {
@@ -84,6 +86,7 @@ object Libs {
         private const val version = "2.9.0"
         const val retrofit = "com.squareup.retrofit2:retrofit:$version"
         const val converterGson = "com.squareup.retrofit2:converter-gson:$version"
+        const val rxjava = "com.squareup.retrofit2:adapter-rxjava3:$version"
     }
 
     object Arrow {
@@ -111,6 +114,11 @@ object Libs {
 
     object JavaX {
         const val inject = "javax.inject:javax.inject:1"
+    }
+
+    object RxJava {
+        const val rxjava = "io.reactivex.rxjava3:rxjava:3.1.4"
+        const val rxandroid = "io.reactivex.rxjava3:rxandroid:3.0.0"
     }
 
     const val turbine = "app.cash.turbine:turbine:0.7.0"

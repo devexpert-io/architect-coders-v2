@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.databinding.FragmentMainBinding
-import com.devexperto.architectcoders.ui.common.launchAndCollect
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +26,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             recycler.adapter = adapter
         }
 
-        viewLifecycleOwner.launchAndCollect(viewModel.state) {
+        viewModel.state.observe(viewLifecycleOwner) {
             binding.loading = it.loading
             binding.movies = it.movies
             binding.error = it.error?.let(mainState::errorToString)

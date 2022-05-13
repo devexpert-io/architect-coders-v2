@@ -1,15 +1,16 @@
 package com.devexperto.architectcoders.ui.main
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.devexperto.architectcoders.data.toError
 import com.devexperto.architectcoders.domain.Error
 import com.devexperto.architectcoders.domain.Movie
 import com.devexperto.architectcoders.usecases.GetPopularMoviesUseCase
 import com.devexperto.architectcoders.usecases.RequestPopularMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,23 +19,34 @@ class MainViewModel @Inject constructor(
     private val requestPopularMoviesUseCase: RequestPopularMoviesUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(UiState())
-    val state: StateFlow<UiState> = _state.asStateFlow()
+    private val disposable = CompositeDisposable()
+
+    private val _state = MutableLiveData(UiState())
+    val state: LiveData<UiState> get() = _state
 
     init {
-        viewModelScope.launch {
+        disposable.add(
             getPopularMoviesUseCase()
-                .catch { cause -> _state.update { it.copy(error = cause.toError()) } }
-                .collect { movies -> _state.update { UiState(movies = movies) } }
-        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { movies -> _state.value = UiState(movies = movies) }
+        )
     }
 
     fun onUiReady() {
-        viewModelScope.launch {
-            _state.value = _state.value.copy(loading = true)
-            val error = requestPopularMoviesUseCase()
-            _state.value = _state.value.copy(loading = false, error = error)
-        }
+        disposable.add(
+            requestPopularMoviesUseCase()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { _state.value = _state.value?.copy(loading = true) }
+                .doOnComplete { _state.value = _state.value?.copy(loading = false) }
+                .subscribe()
+        )
+    }
+
+    override fun onCleared() {
+        disposable.dispose()
+        super.onCleared()
     }
 
     data class UiState(

@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.databinding.FragmentDetailBinding
-import com.devexperto.architectcoders.ui.common.launchAndCollect
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +20,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         binding.movieDetailToolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
         binding.movieDetailFavorite.setOnClickListener { viewModel.onFavoriteClicked() }
 
-        viewLifecycleOwner.launchAndCollect(viewModel.state) { state ->
+        viewModel.state.observe(viewLifecycleOwner) { state ->
             if (state.movie != null) {
                 binding.movie = state.movie
             }

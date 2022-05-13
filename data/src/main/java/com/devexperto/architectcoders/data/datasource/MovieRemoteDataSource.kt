@@ -1,9 +1,8 @@
 package com.devexperto.architectcoders.data.datasource
 
-import arrow.core.Either
-import com.devexperto.architectcoders.domain.Error
 import com.devexperto.architectcoders.domain.Movie
+import io.reactivex.rxjava3.core.Single
 
 interface MovieRemoteDataSource {
-    suspend fun findPopularMovies(region: String): Either<Error, List<Movie>>
+    fun findPopularMovies(region: String): Single<List<Movie>>
 }

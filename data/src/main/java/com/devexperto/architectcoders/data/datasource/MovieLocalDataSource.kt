@@ -1,13 +1,14 @@
 package com.devexperto.architectcoders.data.datasource
 
-import com.devexperto.architectcoders.domain.Error
 import com.devexperto.architectcoders.domain.Movie
-import kotlinx.coroutines.flow.Flow
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Single
 
 interface MovieLocalDataSource {
-    val movies: Flow<List<Movie>>
+    val movies: Flowable<List<Movie>>
 
-    suspend fun isEmpty(): Boolean
-    fun findById(id: Int): Flow<Movie>
-    suspend fun save(movies: List<Movie>): Error?
+    fun isEmpty(): Single<Boolean>
+    fun findById(id: Int): Flowable<Movie>
+    fun save(movies: List<Movie>): Completable
 }

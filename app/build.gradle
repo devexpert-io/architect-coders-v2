@@ -87,6 +87,12 @@ dependencies {
     implementation Libs.Hilt.android
     kapt Libs.Hilt.compiler
 
+    implementation Libs.RxJava.rxandroid
+    implementation Libs.RxJava.rxjava
+    implementation Libs.Retrofit.rxjava
+    implementation Libs.AndroidX.Room.rxjava
+    implementation Libs.AndroidX.Lifecycle.reactivestreamsKtx
+
     testImplementation project(":testShared")
     testImplementation Libs.JUnit.junit
     testImplementation Libs.Mockito.kotlin

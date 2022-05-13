@@ -2,9 +2,10 @@ package com.devexperto.architectcoders.data
 
 import com.devexperto.architectcoders.data.datasource.MovieLocalDataSource
 import com.devexperto.architectcoders.data.datasource.MovieRemoteDataSource
-import com.devexperto.architectcoders.domain.Error
 import com.devexperto.architectcoders.domain.Movie
-import kotlinx.coroutines.flow.Flow
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(
@@ -14,20 +15,15 @@ class MoviesRepository @Inject constructor(
 ) {
     val popularMovies get() = localDataSource.movies
 
-    fun findById(id: Int): Flow<Movie> = localDataSource.findById(id)
+    fun findById(id: Int): Flowable<Movie> = localDataSource.findById(id)
 
-    suspend fun requestPopularMovies(): Error? {
-        if (localDataSource.isEmpty()) {
-            val movies = remoteDataSource.findPopularMovies(regionRepository.findLastRegion())
-            movies.fold(ifLeft = { return it }) {
-                localDataSource.save(it)
-            }
-        }
-        return null
-    }
+    fun requestPopularMovies(): Completable = localDataSource.isEmpty()
+        .filter { it }
+        .flatMapSingle { regionRepository.findLastRegion() }
+        .flatMapSingle { remoteDataSource.findPopularMovies(it) }
+        .flatMapCompletable { localDataSource.save(it) }
 
-    suspend fun switchFavorite(movie: Movie): Error? {
-        val updatedMovie = movie.copy(favorite = !movie.favorite)
-        return localDataSource.save(listOf(updatedMovie))
-    }
+    fun switchFavorite(movie: Movie): Completable = Single
+        .just(movie.copy(favorite = !movie.favorite))
+        .flatMapCompletable { localDataSource.save(listOf(it)) }
 }

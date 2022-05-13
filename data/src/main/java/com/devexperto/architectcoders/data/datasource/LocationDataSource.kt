@@ -1,5 +1,8 @@
 package com.devexperto.architectcoders.data.datasource
 
+import arrow.core.Option
+import io.reactivex.rxjava3.core.Single
+
 interface LocationDataSource {
-    suspend fun findLastRegion(): String?
+    fun findLastRegion(): Single<Option<String>>
 }
