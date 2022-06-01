@@ -1,12 +1,10 @@
 package com.devexperto.architectcoders.data
 
-import arrow.core.right
 import com.devexperto.architectcoders.data.datasource.MovieLocalDataSource
 import com.devexperto.architectcoders.data.datasource.MovieRemoteDataSource
 import com.devexperto.architectcoders.testshared.sampleMovie
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Single
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,67 +29,67 @@ class MoviesRepositoryTest {
 
     private lateinit var moviesRepository: MoviesRepository
 
-    private val localMovies = flowOf(listOf(sampleMovie.copy(1)))
+    private val localMovies = listOf(sampleMovie.copy(1))
 
     @Before
     fun setUp() {
-        whenever(localDataSource.movies).thenReturn(localMovies)
+        whenever(localDataSource.movies).thenReturn(Flowable.just(localMovies))
         moviesRepository = MoviesRepository(regionRepository, localDataSource, remoteDataSource)
     }
 
     @Test
-    fun `Popular movies are taken from local data source if available`(): Unit = runBlocking {
+    fun `Popular movies are taken from local data source if available`() {
 
         val result = moviesRepository.popularMovies
 
-        assertEquals(localMovies, result)
+        result.test().assertResult(localMovies)
     }
 
     @Test
-    fun `Popular movies are saved to local data source when it's empty`(): Unit = runBlocking {
+    fun `Popular movies are saved to local data source when it's empty`() {
         val remoteMovies = listOf(sampleMovie.copy(2))
-        whenever(localDataSource.isEmpty()).thenReturn(true)
-        whenever(regionRepository.findLastRegion()).thenReturn(RegionRepository.DEFAULT_REGION)
-        whenever(remoteDataSource.findPopularMovies(any())).thenReturn(remoteMovies.right())
+        whenever(localDataSource.isEmpty()).thenReturn(Single.just(true))
+        whenever(regionRepository.findLastRegion()).thenReturn(Single.just(RegionRepository.DEFAULT_REGION))
+        whenever(remoteDataSource.findPopularMovies(any())).thenReturn(Single.just(remoteMovies))
 
-        moviesRepository.requestPopularMovies()
+        moviesRepository.requestPopularMovies().blockingSubscribe()
 
         verify(localDataSource).save(remoteMovies)
     }
 
     @Test
-    fun `Finding a movie by id is done in local data source`(): Unit = runBlocking {
-        val movie = flowOf(sampleMovie.copy(id = 5))
-        whenever(localDataSource.findById(5)).thenReturn(movie)
+    fun `Finding a movie by id is done in local data source`() {
+        val movie = sampleMovie.copy(id = 5)
+        whenever(localDataSource.findById(5)).thenReturn(Flowable.just(movie))
 
         val result = moviesRepository.findById(5)
 
-        assertEquals(movie, result)
+        result.test().assertResult(movie)
     }
 
     @Test
-    fun `Switching favorite updates local data source`(): Unit = runBlocking {
+    fun `Switching favorite updates local data source`() {
         val movie = sampleMovie.copy(id = 3)
 
-        moviesRepository.switchFavorite(movie)
+        moviesRepository.switchFavorite(movie).blockingSubscribe()
 
         verify(localDataSource).save(argThat { get(0).id == 3 })
     }
 
     @Test
-    fun `Switching favorite marks as favorite an unfavorite movie`(): Unit = runBlocking {
+    fun `Switching favorite marks as favorite an unfavorite movie`() {
         val movie = sampleMovie.copy(favorite = false)
 
-        moviesRepository.switchFavorite(movie)
+        moviesRepository.switchFavorite(movie).blockingSubscribe()
 
         verify(localDataSource).save(argThat { get(0).favorite })
     }
 
     @Test
-    fun `Switching favorite marks as unfavorite a favorite movie`(): Unit = runBlocking {
+    fun `Switching favorite marks as unfavorite a favorite movie`() {
         val movie = sampleMovie.copy(favorite = true)
 
-        moviesRepository.switchFavorite(movie)
+        moviesRepository.switchFavorite(movie).blockingSubscribe()
 
         verify(localDataSource).save(argThat { !get(0).favorite })
     }

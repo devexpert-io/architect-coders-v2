@@ -1,9 +1,9 @@
 package com.devexperto.architectcoders.data
 
+import arrow.core.Option
 import com.devexperto.architectcoders.data.PermissionChecker.Permission.COARSE_LOCATION
 import com.devexperto.architectcoders.data.datasource.LocationDataSource
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
+import io.reactivex.rxjava3.core.Single
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
@@ -14,26 +14,26 @@ import org.mockito.kotlin.mock
 class RegionRepositoryTest {
 
     @Test
-    fun `Returns default region when coarse permission not granted`(): Unit = runBlocking {
+    fun `Returns default region when coarse permission not granted`() {
         val regionRepository = buildRegionRepository(
             permissionChecker = mock { on { check(COARSE_LOCATION) } doReturn false }
         )
 
         val region = regionRepository.findLastRegion()
 
-        assertEquals(RegionRepository.DEFAULT_REGION, region)
+        region.test().assertResult(RegionRepository.DEFAULT_REGION)
     }
 
     @Test
-    fun `Returns region from location data source when permission granted`(): Unit = runBlocking {
+    fun `Returns region from location data source when permission granted`() {
         val regionRepository = buildRegionRepository(
-            locationDataSource = mock { onBlocking { findLastRegion() } doReturn "ES" },
+            locationDataSource = mock { onBlocking { findLastRegion() } doReturn Single.just(Option("ES")) },
             permissionChecker = mock { on { check(COARSE_LOCATION) } doReturn true }
         )
 
         val region = regionRepository.findLastRegion()
 
-        assertEquals("ES", region)
+        region.test().assertResult("ES")
     }
 }
 

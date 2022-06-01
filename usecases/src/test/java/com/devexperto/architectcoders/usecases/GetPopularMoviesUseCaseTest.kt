@@ -1,9 +1,7 @@
 package com.devexperto.architectcoders.usecases
 
 import com.devexperto.architectcoders.testshared.sampleMovie
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert
+import io.reactivex.rxjava3.core.Flowable
 import org.junit.Test
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
@@ -11,14 +9,14 @@ import org.mockito.kotlin.mock
 class GetPopularMoviesUseCaseTest {
 
     @Test
-    fun `Invoke calls movies repository`(): Unit = runBlocking {
-        val movies = flowOf(listOf(sampleMovie.copy(id = 1)))
+    fun `Invoke calls movies repository`() {
+        val movies = listOf(sampleMovie.copy(id = 1))
         val getPopularMoviesUseCase = GetPopularMoviesUseCase(mock {
-            on { popularMovies } doReturn movies
+            on { popularMovies } doReturn Flowable.just(movies)
         })
 
         val result = getPopularMoviesUseCase()
 
-        Assert.assertEquals(movies, result)
+        result.test().assertResult(movies)
     }
 }
