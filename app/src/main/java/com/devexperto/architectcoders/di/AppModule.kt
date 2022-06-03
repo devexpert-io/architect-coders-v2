@@ -3,6 +3,7 @@ package com.devexperto.architectcoders.di
 import android.app.Application
 import androidx.room.Room
 import com.devexperto.architectcoders.R
+import com.devexperto.architectcoders.SchedulerProvider
 import com.devexperto.architectcoders.data.AndroidPermissionChecker
 import com.devexperto.architectcoders.data.PermissionChecker
 import com.devexperto.architectcoders.data.PlayServicesLocationDataSource
@@ -18,6 +19,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -70,6 +74,16 @@ object AppModule {
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
             .create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSchedulerProvider() = object : SchedulerProvider {
+        override fun ui(): Scheduler = AndroidSchedulers.mainThread()
+
+        override fun computation(): Scheduler = Schedulers.computation()
+
+        override fun io(): Scheduler = Schedulers.io()
     }
 
 }

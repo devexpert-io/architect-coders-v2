@@ -3,20 +3,20 @@ package com.devexperto.architectcoders.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.devexperto.architectcoders.SchedulerProvider
 import com.devexperto.architectcoders.domain.Error
 import com.devexperto.architectcoders.domain.Movie
 import com.devexperto.architectcoders.usecases.GetPopularMoviesUseCase
 import com.devexperto.architectcoders.usecases.RequestPopularMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     getPopularMoviesUseCase: GetPopularMoviesUseCase,
-    private val requestPopularMoviesUseCase: RequestPopularMoviesUseCase
+    private val requestPopularMoviesUseCase: RequestPopularMoviesUseCase,
+    private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
 
     private val disposable = CompositeDisposable()
@@ -27,8 +27,8 @@ class MainViewModel @Inject constructor(
     init {
         disposable.add(
             getPopularMoviesUseCase()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
                 .subscribe { movies -> _state.value = UiState(movies = movies) }
         )
     }
@@ -36,8 +36,8 @@ class MainViewModel @Inject constructor(
     fun onUiReady() {
         disposable.add(
             requestPopularMoviesUseCase()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
                 .doOnSubscribe { _state.value = _state.value?.copy(loading = true) }
                 .doOnComplete { _state.value = _state.value?.copy(loading = false) }
                 .subscribe()

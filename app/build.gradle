@@ -99,6 +99,7 @@ dependencies {
     testImplementation Libs.Mockito.inline
     testImplementation Libs.Kotlin.Coroutines.test
     testImplementation Libs.turbine
+    testImplementation Libs.AndroidX.Arch.coreTesting
 
     androidTestImplementation Libs.AndroidX.Test.Ext.junit
     androidTestImplementation Libs.AndroidX.Test.Espresso.contrib

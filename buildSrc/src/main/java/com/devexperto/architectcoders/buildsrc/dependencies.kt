@@ -36,14 +36,16 @@ object Libs {
             private const val version = "2.4.1"
             const val viewmodelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
             const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
-            const val reactivestreamsKtx = "androidx.lifecycle:lifecycle-reactivestreams-ktx:$version"
+            const val reactivestreamsKtx =
+                "androidx.lifecycle:lifecycle-reactivestreams-ktx:$version"
         }
 
         object Navigation {
             private const val version = "2.4.1"
             const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:$version"
             const val uiKtx = "androidx.navigation:navigation-ui-ktx:$version"
-            const val gradlePlugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$version"
+            const val gradlePlugin =
+                "androidx.navigation:navigation-safe-args-gradle-plugin:$version"
         }
 
         object Room {
@@ -63,10 +65,16 @@ object Libs {
                 private const val version = "1.1.3"
                 const val junit = "androidx.test.ext:junit-ktx:$version"
             }
-            object Espresso{
-                private const val version="3.4.0"
+
+            object Espresso {
+                private const val version = "3.4.0"
                 const val contrib = "androidx.test.espresso:espresso-contrib:$version"
             }
+        }
+
+        object Arch {
+            private const val version = "2.1.0"
+            const val coreTesting = "androidx.arch.core:core-testing:$version"
         }
     }
 

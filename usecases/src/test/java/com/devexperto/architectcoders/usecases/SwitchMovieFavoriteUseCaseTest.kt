@@ -1,7 +1,6 @@
 package com.devexperto.architectcoders.usecases
 
 import com.devexperto.architectcoders.data.MoviesRepository
-import com.devexperto.architectcoders.testshared.sampleMovie
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
