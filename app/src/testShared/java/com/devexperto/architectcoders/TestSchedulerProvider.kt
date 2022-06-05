@@ -1,6 +1,5 @@
-package com.devexperto.architectcoders.ui
+package com.devexperto.architectcoders
 
-import com.devexperto.architectcoders.SchedulerProvider
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.schedulers.Schedulers
 

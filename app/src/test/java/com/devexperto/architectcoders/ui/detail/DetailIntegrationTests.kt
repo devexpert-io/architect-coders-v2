@@ -2,8 +2,8 @@ package com.devexperto.architectcoders.ui.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.devexperto.architectcoders.TestSchedulerProvider
 import com.devexperto.architectcoders.data.server.RemoteMovie
-import com.devexperto.architectcoders.ui.TestSchedulerProvider
 import com.devexperto.architectcoders.ui.buildDatabaseMovies
 import com.devexperto.architectcoders.ui.buildRepositoryWith
 import com.devexperto.architectcoders.ui.detail.DetailViewModel.UiState

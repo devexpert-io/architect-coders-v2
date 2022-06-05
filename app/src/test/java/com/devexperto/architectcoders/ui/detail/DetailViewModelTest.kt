@@ -2,8 +2,8 @@ package com.devexperto.architectcoders.ui.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.devexperto.architectcoders.TestSchedulerProvider
 import com.devexperto.architectcoders.testshared.sampleMovie
-import com.devexperto.architectcoders.ui.TestSchedulerProvider
 import com.devexperto.architectcoders.ui.detail.DetailViewModel.UiState
 import com.devexperto.architectcoders.usecases.FindMovieUseCase
 import com.devexperto.architectcoders.usecases.SwitchMovieFavoriteUseCase

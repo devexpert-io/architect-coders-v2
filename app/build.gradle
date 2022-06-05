@@ -71,6 +71,7 @@ dependencies {
 
     implementation Libs.AndroidX.Room.runtime
     implementation Libs.AndroidX.Room.ktx
+    androidTestImplementation project(path: ':app')
     kapt Libs.AndroidX.Room.compiler
 
     implementation Libs.playServicesLocation
