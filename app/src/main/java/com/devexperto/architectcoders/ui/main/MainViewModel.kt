@@ -1,19 +1,18 @@
 package com.devexperto.architectcoders.ui.main
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.devexperto.architectcoders.data.toError
 import com.devexperto.architectcoders.domain.Error
 import com.devexperto.architectcoders.domain.Movie
 import com.devexperto.architectcoders.usecases.GetPopularMoviesUseCase
 import com.devexperto.architectcoders.usecases.RequestPopularMoviesUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class MainViewModel @Inject constructor(
+class MainViewModel(
     getPopularMoviesUseCase: GetPopularMoviesUseCase,
     private val requestPopularMoviesUseCase: RequestPopularMoviesUseCase
 ) : ViewModel() {
@@ -42,4 +41,15 @@ class MainViewModel @Inject constructor(
         val movies: List<Movie>? = null,
         val error: Error? = null
     )
+}
+
+@Suppress("UNCHECKED_CAST")
+class MainViewModelFactory @Inject constructor(
+    private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
+    private val requestPopularMoviesUseCase: RequestPopularMoviesUseCase
+) :
+    ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return MainViewModel(getPopularMoviesUseCase, requestPopularMoviesUseCase) as T
+    }
 }

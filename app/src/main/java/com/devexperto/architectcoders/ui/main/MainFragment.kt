@@ -6,17 +6,25 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.databinding.FragmentMainBinding
+import com.devexperto.architectcoders.ui.common.app
 import com.devexperto.architectcoders.ui.common.launchAndCollect
-import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-@AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
 
-    private val viewModel: MainViewModel by viewModels()
+    @Inject
+    lateinit var vmFactory: MainViewModelFactory
+
+    private val viewModel: MainViewModel by viewModels { vmFactory }
 
     private lateinit var mainState: MainState
 
     private val adapter = MoviesAdapter { mainState.onMovieClicked(it) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        app.component.inject(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

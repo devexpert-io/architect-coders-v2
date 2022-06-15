@@ -6,7 +6,6 @@ plugins {
     id 'org.jetbrains.kotlin.kapt'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -84,8 +83,8 @@ dependencies {
 
     implementation Libs.Arrow.core
 
-    implementation Libs.Hilt.android
-    kapt Libs.Hilt.compiler
+    implementation Libs.Dagger.dagger
+    kapt Libs.Dagger.Compiler
 
     testImplementation project(":testShared")
     testImplementation Libs.JUnit.junit
@@ -98,9 +97,8 @@ dependencies {
     androidTestImplementation Libs.AndroidX.Test.Espresso.contrib
     androidTestImplementation Libs.AndroidX.Test.runner
     androidTestImplementation Libs.AndroidX.Test.rules
-    androidTestImplementation Libs.Hilt.test
     androidTestImplementation Libs.Kotlin.Coroutines.test
-    kaptAndroidTest Libs.Hilt.compiler
+    kaptAndroidTest Libs.Dagger.compiler
 
     androidTestImplementation Libs.OkHttp3.mockWebServer
 }

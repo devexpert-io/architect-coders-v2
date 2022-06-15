@@ -1,6 +1,7 @@
 package com.devexperto.architectcoders.ui.detail
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.devexperto.architectcoders.data.toError
 import com.devexperto.architectcoders.di.MovieId
@@ -8,14 +9,14 @@ import com.devexperto.architectcoders.domain.Error
 import com.devexperto.architectcoders.domain.Movie
 import com.devexperto.architectcoders.usecases.FindMovieUseCase
 import com.devexperto.architectcoders.usecases.SwitchMovieFavoriteUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
-@HiltViewModel
-class DetailViewModel @Inject constructor(
+class DetailViewModel(
     @MovieId private val movieId: Int,
     findMovieUseCase: FindMovieUseCase,
     private val switchMovieFavoriteUseCase: SwitchMovieFavoriteUseCase
@@ -42,4 +43,21 @@ class DetailViewModel @Inject constructor(
     }
 
     data class UiState(val movie: Movie? = null, val error: Error? = null)
+}
+
+@Suppress("UNCHECKED_CAST")
+class DetailViewModelFactory @AssistedInject constructor(
+    @Assisted private val movieId: Int,
+    private val findMovieUseCase: FindMovieUseCase,
+    private val switchMovieFavoriteUseCase: SwitchMovieFavoriteUseCase
+) :
+    ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return DetailViewModel(movieId, findMovieUseCase, switchMovieFavoriteUseCase) as T
+    }
+}
+
+@AssistedFactory
+interface DetailViewModelAssistedFactory {
+    fun create(movieId: Int): DetailViewModelFactory
 }

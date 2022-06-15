@@ -91,12 +91,10 @@ object Libs {
         const val core = "io.arrow-kt:arrow-core:$version"
     }
 
-    object Hilt {
+    object Dagger {
         private const val version = "2.41"
-        const val android = "com.google.dagger:hilt-android:$version"
-        const val compiler = "com.google.dagger:hilt-compiler:$version"
-        const val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
-        const val test = "com.google.dagger:hilt-android-testing:$version"
+        const val dagger = "com.google.dagger:dagger:$version"
+        const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 
     object JUnit {
