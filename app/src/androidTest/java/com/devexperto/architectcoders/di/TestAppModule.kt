@@ -7,8 +7,6 @@ import com.devexperto.architectcoders.data.database.MovieDatabase
 import com.devexperto.architectcoders.data.server.RemoteService
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.components.SingletonComponent
-import dagger.hilt.testing.TestInstallIn
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,10 +15,6 @@ import retrofit2.create
 import javax.inject.Singleton
 
 @Module
-@TestInstallIn(
-    components = [SingletonComponent::class],
-    replaces = [AppModule::class]
-)
 object TestAppModule {
 
     @Provides

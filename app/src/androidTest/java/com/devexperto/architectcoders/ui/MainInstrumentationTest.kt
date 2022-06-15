@@ -1,6 +1,7 @@
 package com.devexperto.architectcoders.ui
 
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
@@ -10,10 +11,9 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.rule.GrantPermissionRule
 import com.devexperto.architectcoders.R
+import com.devexperto.architectcoders.TestApp
 import com.devexperto.architectcoders.data.server.MockWebServerRule
 import com.devexperto.architectcoders.fromJson
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
@@ -23,11 +23,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-@HiltAndroidTest
 class MainInstrumentationTest {
-
-    @get:Rule(order = 0)
-    val hiltRule = HiltAndroidRule(this)
 
     @get:Rule(order = 1)
     val mockWebServerRule = MockWebServerRule()
@@ -45,11 +41,12 @@ class MainInstrumentationTest {
 
     @Before
     fun setUp() {
+        val app = ApplicationProvider.getApplicationContext<TestApp>()
+        app.component.inject(this)
+
         mockWebServerRule.server.enqueue(
             MockResponse().fromJson("popular_movies.json")
         )
-
-        hiltRule.inject()
 
         val resource = OkHttp3IdlingResource.create("OkHttp", okHttpClient)
         IdlingRegistry.getInstance().register(resource)
@@ -59,9 +56,10 @@ class MainInstrumentationTest {
     fun click_a_movie_navigates_to_detail() {
         onView(withId(R.id.recycler))
             .perform(
-            actionOnItemAtPosition<RecyclerView.ViewHolder>(4, click()
+                actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                    4, click()
+                )
             )
-        )
 
         onView(withId(R.id.movie_detail_toolbar))
             .check(matches(hasDescendant(withText("Turning Red"))))

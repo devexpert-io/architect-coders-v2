@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.devexperto.architectcoders.App
+import com.devexperto.architectcoders.di.AppComponent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -47,6 +48,6 @@ fun <T> LifecycleOwner.launchAndCollect(
     }
 }
 
-val Context.app: App get() = applicationContext as App
+val Context.app: App<AppComponent> get() = applicationContext as App<AppComponent>
 
-val Fragment.app: App get() = requireContext().app
+val Fragment.app: App<AppComponent> get() = requireContext().app
