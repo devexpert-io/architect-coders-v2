@@ -1,48 +1,47 @@
 [versions]
-androidx-arch-core = "2.1.0"
-androidx-collection = "1.1.0"
-androidx-lifecycle = "2.4.1"
-androidx-navigation = "2.4.1"
-androidx-room = "2.4.2"
-com-github-bumptech-glide = "4.13.1"
-com-google-dagger = "2.41"
+androidx-lifecycle = "2.5.1"
+androidx-navigation = "2.5.3"
+androidx-room = "2.4.3"
+com-github-bumptech-glide = "4.14.2"
+com-google-dagger = "2.44.2"
 com-squareup-retrofit2 = "2.9.0"
+org-jetbrains-kotlin = "1.7.22"
 
 [libraries]
-androidx-activity-activity-ktx = "androidx.activity:activity-ktx:1.4.0"
-androidx-appcompat = "androidx.appcompat:appcompat:1.4.1"
-androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.3"
-androidx-core-core-ktx = "androidx.core:core-ktx:1.7.0"
+androidx-activity-activity-ktx = "androidx.activity:activity-ktx:1.6.1"
+androidx-appcompat = "androidx.appcompat:appcompat:1.5.1"
+androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
+androidx-core-core-ktx = "androidx.core:core-ktx:1.9.0"
 androidx-lifecycle-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-navigation-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
 androidx-navigation-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigation" }
 androidx-recyclerview = "androidx.recyclerview:recyclerview:1.2.1"
+androidx-room-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
 androidx-room-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
 androidx-room-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
-androidx-room-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
-androidx-test-espresso-espresso-core = "androidx.test.espresso:espresso-core:3.4.0"
-androidx-test-ext-junit = "androidx.test.ext:junit:1.1.3"
+androidx-test-espresso-espresso-core = "androidx.test.espresso:espresso-core:3.5.0"
+androidx-test-ext-junit = "androidx.test.ext:junit:1.1.4"
 com-github-bumptech-glide = { module = "com.github.bumptech.glide:glide", version.ref = "com-github-bumptech-glide" }
 com-github-bumptech-glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "com-github-bumptech-glide" }
-com-google-android-gms-play-services-location = "com.google.android.gms:play-services-location:19.0.1"
-com-google-android-material = "com.google.android.material:material:1.5.0"
+com-google-android-gms-play-services-location = "com.google.android.gms:play-services-location:21.0.1"
+com-google-android-material = "com.google.android.material:material:1.7.0"
 com-google-dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "com-google-dagger" }
 com-google-dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "com-google-dagger" }
 com-squareup-okhttp3-logging-interceptor = "com.squareup.okhttp3:logging-interceptor:4.9.2"
 com-squareup-retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "com-squareup-retrofit2" }
 com-squareup-retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "com-squareup-retrofit2" }
-io-arrow-kt-arrow-core = "io.arrow-kt:arrow-core:1.0.1"
+io-arrow-kt-arrow-core = "io.arrow-kt:arrow-core:1.1.3"
 javax-inject-javax-inject = "javax.inject:javax.inject:1"
 junit = "junit:junit:4.13.2"
-org-jetbrains-kotlinx-kotlinx-coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+org-jetbrains-kotlinx-kotlinx-coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
 
 [plugins]
-androidx-navigation-safeargs-kotlin = "androidx.navigation.safeargs.kotlin:2.4.1"
-com-android-application = "com.android.application:7.1.2"
-com-android-library = "com.android.library:7.1.2"
-com-github-ben-manes-versions = "com.github.ben-manes.versions:0.41.0"
-com-google-dagger-hilt-android = "com.google.dagger.hilt.android:2.41"
+androidx-navigation-safeargs-kotlin = "androidx.navigation.safeargs.kotlin:2.5.3"
+com-android-application = "com.android.application:7.3.1"
+com-android-library = "com.android.library:7.3.1"
+com-github-ben-manes-versions = "com.github.ben-manes.versions:0.44.0"
+com-google-dagger-hilt-android = "com.google.dagger.hilt.android:2.44.2"
 nl-littlerobots-version-catalog-update = "nl.littlerobots.version-catalog-update:0.7.0"
-org-jetbrains-kotlin-android = "org.jetbrains.kotlin.android:1.6.10"
-org-jetbrains-kotlin-jvm = "org.jetbrains.kotlin.jvm:1.6.10"
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin" }
+org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin" }
