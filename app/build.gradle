@@ -47,20 +47,15 @@ dependencies {
     implementation libs.androidx.appcompat
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.core.core.ktx
-    implementation libs.androidx.lifecycle.lifecycle.viewmodel.ktx
-    implementation libs.androidx.lifecycle.lifecycle.runtime.ktx
-    implementation libs.androidx.navigation.navigation.fragment.ktx
-    implementation libs.androidx.navigation.navigation.ui.ktx
+    implementation libs.bundles.androidx.lifecycle
+    implementation libs.bundles.androidx.navigation
     implementation libs.androidx.recyclerview
-    implementation libs.androidx.room.room.runtime
-    implementation libs.androidx.room.room.ktx
+    implementation libs.bundles.androidx.room
     implementation libs.com.github.bumptech.glide
     implementation libs.com.google.android.gms.play.services.location
     implementation libs.com.google.android.material
     implementation libs.com.google.dagger.hilt.android
-    implementation libs.com.squareup.okhttp3.logging.interceptor
-    implementation libs.com.squareup.retrofit2.retrofit
-    implementation libs.com.squareup.retrofit2.converter.gson
+    implementation libs.bundles.com.squareup.retrofit2
     implementation libs.io.arrow.kt.arrow.core
 
     kapt libs.androidx.room.room.compiler

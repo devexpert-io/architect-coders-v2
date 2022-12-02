@@ -36,6 +36,25 @@ javax-inject-javax-inject = "javax.inject:javax.inject:1"
 junit = "junit:junit:4.13.2"
 org-jetbrains-kotlinx-kotlinx-coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
 
+[bundles]
+androidx-lifecycle = [
+    "androidx-lifecycle-lifecycle-runtime-ktx",
+    "androidx-lifecycle-lifecycle-viewmodel-ktx",
+]
+androidx-navigation = [
+    "androidx-navigation-navigation-fragment-ktx",
+    "androidx-navigation-navigation-ui-ktx",
+]
+androidx-room = [
+    "androidx-room-room-ktx",
+    "androidx-room-room-runtime",
+]
+com-squareup-retrofit2 = [
+    "com-squareup-okhttp3-logging-interceptor",
+    "com-squareup-retrofit2-converter-gson",
+    "com-squareup-retrofit2-retrofit",
+]
+
 [plugins]
 androidx-navigation-safeargs-kotlin = "androidx.navigation.safeargs.kotlin:2.5.3"
 com-android-application = "com.android.application:7.3.1"
