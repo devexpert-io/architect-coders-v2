@@ -1,11 +1,11 @@
 package com.devexperto.architectcoders.di
 
 import android.app.Application
-import com.devexperto.architectcoders.appTestShared.FakeMovieDao
+import androidx.room.Room
 import com.devexperto.architectcoders.appTestShared.FakeRemoteService
 import com.devexperto.architectcoders.appTestShared.buildRemoteMovies
 import com.devexperto.architectcoders.R
-import com.devexperto.architectcoders.data.database.MovieDao
+import com.devexperto.architectcoders.data.database.MovieDatabase
 import com.devexperto.architectcoders.data.server.RemoteService
 import dagger.Module
 import dagger.Provides
@@ -27,7 +27,14 @@ object TestAppModule {
 
     @Provides
     @Singleton
-    fun provideMovieDao(): MovieDao = FakeMovieDao()
+    fun provideDatabase(app: Application) = Room.inMemoryDatabaseBuilder(
+        app,
+        MovieDatabase::class.java
+    ).build()
+
+    @Provides
+    @Singleton
+    fun provideMovieDao(db: MovieDatabase) = db.movieDao()
 
     @Provides
     @Singleton
