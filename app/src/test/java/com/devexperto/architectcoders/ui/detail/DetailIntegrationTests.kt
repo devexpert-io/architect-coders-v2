@@ -3,8 +3,8 @@ package com.devexperto.architectcoders.ui.detail
 import app.cash.turbine.test
 import com.devexperto.architectcoders.data.server.RemoteMovie
 import com.devexperto.architectcoders.testrules.CoroutinesTestRule
-import com.devexperto.architectcoders.ui.buildDatabaseMovies
-import com.devexperto.architectcoders.ui.buildRepositoryWith
+import com.devexperto.architectcoders.appTestShared.buildDatabaseMovies
+import com.devexperto.architectcoders.appTestShared.buildRepositoryWith
 import com.devexperto.architectcoders.ui.detail.DetailViewModel.UiState
 import com.devexperto.architectcoders.usecases.FindMovieUseCase
 import com.devexperto.architectcoders.usecases.SwitchMovieFavoriteUseCase

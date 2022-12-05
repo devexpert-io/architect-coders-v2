@@ -79,12 +79,15 @@ dependencies {
     kapt Libs.Hilt.compiler
 
     testImplementation project(":testShared")
+    testImplementation project(":appTestShared")
+
     testImplementation Libs.JUnit.junit
     testImplementation Libs.Mockito.kotlin
     testImplementation Libs.Mockito.inline
     testImplementation Libs.Kotlin.Coroutines.test
     testImplementation Libs.turbine
 
+    androidTestImplementation project(":appTestShared")
     androidTestImplementation Libs.AndroidX.Test.Ext.junit
     androidTestImplementation Libs.AndroidX.Test.Espresso.core
 }

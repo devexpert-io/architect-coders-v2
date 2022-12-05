@@ -1,4 +1,4 @@
-package com.devexperto.architectcoders
+package com.devexperto.architectcoders.appTestShared
 
 import com.devexperto.architectcoders.data.PermissionChecker
 import com.devexperto.architectcoders.data.database.MovieDao

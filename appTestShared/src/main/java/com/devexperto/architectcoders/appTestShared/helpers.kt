@@ -1,9 +1,5 @@
-package com.devexperto.architectcoders.ui
+package com.devexperto.architectcoders.appTestShared
 
-import com.devexperto.architectcoders.FakeLocationDataSource
-import com.devexperto.architectcoders.FakeMovieDao
-import com.devexperto.architectcoders.FakePermissionChecker
-import com.devexperto.architectcoders.FakeRemoteService
 import com.devexperto.architectcoders.data.MoviesRepository
 import com.devexperto.architectcoders.data.RegionRepository
 import com.devexperto.architectcoders.data.database.MovieRoomDataSource

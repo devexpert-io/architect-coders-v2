@@ -3,9 +3,9 @@ package com.devexperto.architectcoders.ui.main
 import app.cash.turbine.test
 import com.devexperto.architectcoders.data.server.RemoteMovie
 import com.devexperto.architectcoders.testrules.CoroutinesTestRule
-import com.devexperto.architectcoders.ui.buildDatabaseMovies
-import com.devexperto.architectcoders.ui.buildRemoteMovies
-import com.devexperto.architectcoders.ui.buildRepositoryWith
+import com.devexperto.architectcoders.appTestShared.buildDatabaseMovies
+import com.devexperto.architectcoders.appTestShared.buildRemoteMovies
+import com.devexperto.architectcoders.appTestShared.buildRepositoryWith
 import com.devexperto.architectcoders.ui.main.MainViewModel.UiState
 import com.devexperto.architectcoders.usecases.GetPopularMoviesUseCase
 import com.devexperto.architectcoders.usecases.RequestPopularMoviesUseCase
