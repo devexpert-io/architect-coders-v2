@@ -20,6 +20,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "com.devexperto.architectcoders.di.HiltTestRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
 
     buildTypes {
@@ -37,8 +40,17 @@ android {
     }
     buildFeatures {
         dataBinding true
+        compose true
     }
     namespace 'com.devexperto.architectcoders'
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.5'
+    }
+    packaging {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
 }
 
 dependencies {
@@ -62,6 +74,7 @@ dependencies {
 
     implementation Libs.AndroidX.Room.runtime
     implementation Libs.AndroidX.Room.ktx
+
     kapt Libs.AndroidX.Room.compiler
 
     implementation Libs.playServicesLocation
@@ -77,6 +90,17 @@ dependencies {
 
     implementation Libs.Hilt.android
     kapt Libs.Hilt.compiler
+
+    implementation platform(Libs.AndroidX.Compose.bom)
+    implementation Libs.AndroidX.Compose.UI.ui
+    implementation Libs.AndroidX.Compose.UI.toolingPreview
+    implementation Libs.AndroidX.Compose.Material.material3
+    implementation Libs.AndroidX.Compose.Material.materialIconsExtended
+    implementation Libs.AndroidX.Activity.compose
+    implementation Libs.AndroidX.Lifecycle.viewmodelCompose
+    implementation Libs.AndroidX.Navigation.compose
+
+    debugImplementation Libs.AndroidX.Compose.UI.tooling
 
     testImplementation project(":testShared")
     testImplementation project(":appTestShared")

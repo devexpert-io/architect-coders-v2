@@ -30,12 +30,14 @@ object Libs {
         object Activity {
             private const val version = "1.8.1"
             const val ktx = "androidx.activity:activity-ktx:$version"
+            const val compose = "androidx.activity:activity-compose:$version"
         }
 
         object Lifecycle {
             private const val version = "2.6.2"
             const val viewmodelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
             const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
+            const val viewmodelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:$version"
         }
 
         object Navigation {
@@ -43,6 +45,7 @@ object Libs {
             const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:$version"
             const val uiKtx = "androidx.navigation:navigation-ui-ktx:$version"
             const val gradlePlugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$version"
+            const val compose = "androidx.navigation:navigation-compose:$version"
         }
 
         object Room {
@@ -63,6 +66,21 @@ object Libs {
             object Espresso{
                 private const val version="3.5.1"
                 const val contrib = "androidx.test.espresso:espresso-contrib:$version"
+            }
+        }
+
+        object Compose {
+            const val bom = "androidx.compose:compose-bom:2023.10.01"
+
+            object UI {
+                const val ui = "androidx.compose.ui:ui"
+                const val tooling = "androidx.compose.ui:ui-tooling"
+                const val toolingPreview = "androidx.compose.ui:ui-tooling-preview"
+            }
+
+            object Material {
+                const val material3 = "androidx.compose.material3:material3"
+                const val materialIconsExtended = "androidx.compose.material:material-icons-extended"
             }
         }
     }
