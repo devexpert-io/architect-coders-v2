@@ -116,6 +116,11 @@ object Libs {
         const val test = "com.google.dagger:hilt-android-testing:$version"
     }
 
+    object Coil {
+        private const val version = "2.5.0"
+        const val compose = "io.coil-kt:coil-compose:$version"
+    }
+
     object JUnit {
         private const val version = "4.13.2"
         const val junit = "junit:junit:$version"
