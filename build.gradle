@@ -16,7 +16,6 @@ buildscript {
         classpath Libs.AndroidX.Navigation.gradlePlugin
         classpath Libs.Hilt.gradlePlugin
         classpath Libs.gradleVersionsPlugin
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
     }
 }
 
