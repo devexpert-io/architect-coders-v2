@@ -1,5 +1,6 @@
 package com.devexperto.architectcoders.composeui.screens.home
 
+import android.Manifest
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -19,11 +20,17 @@ import com.devexperto.architectcoders.composeui.screens.Screen
 import com.devexperto.architectcoders.composeui.screens.common.ErrorText
 import com.devexperto.architectcoders.composeui.screens.common.Loading
 import com.devexperto.architectcoders.domain.Movie
+import com.devexperto.architectcoders.ui.common.PermissionRequestEffect
 import com.devexperto.architectcoders.ui.main.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Home(vm: MainViewModel = hiltViewModel(), onMovieClick: (Movie) -> Unit) {
+
+    PermissionRequestEffect(Manifest.permission.ACCESS_COARSE_LOCATION) {
+        vm.onUiReady()
+    }
+
     val state by vm.state.collectAsState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
