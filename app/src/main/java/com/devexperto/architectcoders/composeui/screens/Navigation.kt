@@ -33,7 +33,7 @@ fun Navigation() {
             route = Screen.Detail.route,
             arguments = listOf(navArgument(NavArgs.ItemId.key) { type = NavType.IntType })
         ) {
-            Detail()
+            Detail(onUpClick = { navController.popBackStack() })
         }
     }
 }
