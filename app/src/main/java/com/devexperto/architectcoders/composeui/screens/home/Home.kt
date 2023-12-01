@@ -1,6 +1,7 @@
 package com.devexperto.architectcoders.composeui.screens.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,7 +28,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.devexperto.architectcoders.R
 import com.devexperto.architectcoders.composeui.screens.Screen
@@ -35,14 +36,20 @@ import com.devexperto.architectcoders.domain.Movie
 import com.devexperto.architectcoders.ui.main.MainViewModel
 
 @Composable
-fun Home(vm: MainViewModel = viewModel()) {
+fun Home(vm: MainViewModel = hiltViewModel(), onMovieClick: (Movie) -> Unit) {
     val state by vm.state.collectAsState()
 
     Screen {
         Scaffold(
             topBar = { HomeTopAppBar() },
         ) { padding ->
-            state.movies?.let { MoviesGrid(it, Modifier.padding(padding)) }
+            state.movies?.let {
+                MoviesGrid(
+                    movies = it,
+                    onMovieClick = onMovieClick,
+                    modifier = Modifier.padding(padding)
+                )
+            }
         }
     }
 }
@@ -57,6 +64,7 @@ private fun HomeTopAppBar() {
 @Composable
 private fun MoviesGrid(
     movies: List<Movie>,
+    onMovieClick: (Movie) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
@@ -67,15 +75,20 @@ private fun MoviesGrid(
         contentPadding = PaddingValues(4.dp)
     ) {
         items(movies) {
-            MovieItem(it)
+            MovieItem(
+                movie = it,
+                onMovieClick = { onMovieClick(it) }
+            )
         }
     }
 }
 
 @Composable
-private fun MovieItem(movie: Movie) {
+private fun MovieItem(movie: Movie, onMovieClick: () -> Unit) {
     Column(
-        modifier = Modifier.fillMaxHeight()
+        modifier = Modifier
+            .fillMaxHeight()
+            .clickable { onMovieClick() }
     ) {
         AsyncImage(
             model = movie.posterPath,

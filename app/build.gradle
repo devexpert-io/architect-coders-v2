@@ -100,6 +100,7 @@ dependencies {
     implementation Libs.AndroidX.Lifecycle.viewmodelCompose
     implementation Libs.AndroidX.Navigation.compose
     implementation Libs.Coil.compose
+    implementation Libs.Hilt.navigationCompose
 
     debugImplementation Libs.AndroidX.Compose.UI.tooling
 

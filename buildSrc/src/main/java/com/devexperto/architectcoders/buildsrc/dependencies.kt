@@ -114,6 +114,7 @@ object Libs {
         const val compiler = "com.google.dagger:hilt-compiler:$version"
         const val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val test = "com.google.dagger:hilt-android-testing:$version"
+        const val navigationCompose = "androidx.hilt:hilt-navigation-compose:1.1.0"
     }
 
     object Coil {
