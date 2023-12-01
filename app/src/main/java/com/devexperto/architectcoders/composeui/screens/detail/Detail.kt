@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.devexperto.architectcoders.composeui.screens.common.ErrorText
 import com.devexperto.architectcoders.domain.Movie
 import com.devexperto.architectcoders.ui.detail.DetailViewModel
 
@@ -67,6 +68,13 @@ fun Detail(onUpClick: () -> Unit, vm: DetailViewModel = hiltViewModel()) {
         state.movie?.let {
             MovieContent(
                 movie = it,
+                modifier = Modifier.padding(padding)
+            )
+        }
+
+        state.error?.let { error ->
+            ErrorText(
+                error = error,
                 modifier = Modifier.padding(padding)
             )
         }
